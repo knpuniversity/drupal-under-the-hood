@@ -1,0 +1,39 @@
+diff --git a/modules/dino_roar/src/Controller/RoarController.php b/modules/dino_roar/src/Controller/RoarController.php
+index df9f6e0..db1f63f 100644
+--- a/modules/dino_roar/src/Controller/RoarController.php
++++ b/modules/dino_roar/src/Controller/RoarController.php
+@@ -2,13 +2,16 @@
+ 
+ namespace Drupal\dino_roar\Controller;
+ 
++use Drupal\dino_roar\Jurassic\RoarGenerator;
+ use Symfony\Component\HttpFoundation\Response;
+ 
+ class RoarController
+ {
+     public function roar($count)
+     {
+-        $roar = 'R'.str_repeat('O', $count).'AR!';
++        $roarGenerator = new RoarGenerator();
++        $roar = $roarGenerator->getRoar($count);
++
+         return new Response($roar);
+     }
+ }
+diff --git a/modules/dino_roar/src/Jurassic/RoarGenerator.php b/modules/dino_roar/src/Jurassic/RoarGenerator.php
+new file mode 100644
+index 0000000..a66346f
+--- /dev/null
++++ b/modules/dino_roar/src/Jurassic/RoarGenerator.php
+@@ -0,0 +1,11 @@
++<?php
++
++namespace Drupal\dino_roar\Jurassic;
++
++class RoarGenerator
++{
++    public function getRoar($length)
++    {
++        return 'R'.str_repeat('O', $length).'AR!';
++    }
++}

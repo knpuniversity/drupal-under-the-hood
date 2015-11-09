@@ -19,7 +19,22 @@
             "id": "routing-use-wildcard",
             "name": "Routing: Use wildcard",
             "description": null
+        },
+        {
+            "id": "install-devel",
+            "name": "Install devel",
+            "description": null
+        },
+        {
+            "id": "services-create-class-and-use-directly",
+            "name": "Services: Create class and use directly",
+            "description": null
+        },
+        {
+            "id": "service-register-and-use",
+            "name": "Service: Register and use",
+            "description": null
         }
     ],
-    "sha": "543ff5239cb53816f67c488b44de0065ec41374f"
+    "sha": "8d09d97a6e846da41a98bdcaea83641174ce2565"
 }
