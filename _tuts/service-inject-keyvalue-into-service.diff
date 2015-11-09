@@ -9,10 +9,10 @@ index 4869c3f..eb1126a 100644
 +        arguments:
 +            - '@keyvalue'
 diff --git a/modules/dino_roar/src/Controller/RoarController.php b/modules/dino_roar/src/Controller/RoarController.php
-index c80fb22..2ad60c2 100644
+index 624bffb..abda954 100644
 --- a/modules/dino_roar/src/Controller/RoarController.php
 +++ b/modules/dino_roar/src/Controller/RoarController.php
-@@ -28,11 +28,7 @@ public static function create(ContainerInterface $container)
+@@ -35,11 +35,7 @@ public static function create(ContainerInterface $container)
  
      public function roar($count)
      {
@@ -22,9 +22,9 @@ index c80fb22..2ad60c2 100644
 -        //$keyValueStore->set('roar_string', $roar);
 -        $roar = $keyValueStore->get('roar_string');
 +        $roar = $this->roarGenerator->getRoar($count);
+         $this->loggerFactory->get('default')
+             ->debug($roar);
  
-         return new Response($roar);
-     }
 diff --git a/modules/dino_roar/src/Jurassic/RoarGenerator.php b/modules/dino_roar/src/Jurassic/RoarGenerator.php
 index a66346f..75c77ce 100644
 --- a/modules/dino_roar/src/Jurassic/RoarGenerator.php

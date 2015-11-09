@@ -1,10 +1,10 @@
 diff --git a/modules/dino_roar/src/Controller/RoarController.php b/modules/dino_roar/src/Controller/RoarController.php
-index 2ad60c2..ff0720c 100644
+index abda954..1a0ed52 100644
 --- a/modules/dino_roar/src/Controller/RoarController.php
 +++ b/modules/dino_roar/src/Controller/RoarController.php
-@@ -30,6 +30,8 @@ public function roar($count)
-     {
-         $roar = $this->roarGenerator->getRoar($count);
+@@ -39,6 +39,8 @@ public function roar($count)
+         $this->loggerFactory->get('default')
+             ->debug($roar);
  
 -        return new Response($roar);
 +        return [

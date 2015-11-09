@@ -36,6 +36,11 @@
             "description": null
         },
         {
+            "id": "service-use-logger-factory",
+            "name": "Service: Use logger.factory",
+            "description": null
+        },
+        {
             "id": "service-use-keyvalue-service",
             "name": "Service: use keyvalue service",
             "description": null
@@ -81,5 +86,5 @@
             "description": null
         }
     ],
-    "sha": "718ca0b48169c9ddded78e7065630ef69fd7b24d"
+    "sha": "ecaa167a386bf42c55f981598cc8c9679855a621"
 }
