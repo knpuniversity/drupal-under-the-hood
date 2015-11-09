@@ -56,6 +56,11 @@
             "description": null
         },
         {
+            "id": "service-keyvalue-cache-configurable",
+            "name": "Service: keyvalue cache configurable",
+            "description": null
+        },
+        {
             "id": "service-use-a-parameter",
             "name": "Service: use a parameter",
             "description": null
@@ -86,5 +91,5 @@
             "description": null
         }
     ],
-    "sha": "ecaa167a386bf42c55f981598cc8c9679855a621"
+    "sha": "698a2095664822456ad1a3ef275f93fe1878cd5d"
 }
