@@ -34,7 +34,52 @@
             "id": "service-register-and-use",
             "name": "Service: Register and use",
             "description": null
+        },
+        {
+            "id": "service-use-keyvalue-service",
+            "name": "Service: use keyvalue service",
+            "description": null
+        },
+        {
+            "id": "service-read-from-keyvalue",
+            "name": "Service: read from keyvalue",
+            "description": null
+        },
+        {
+            "id": "service-inject-keyvalue-into-service",
+            "name": "Service: Inject keyvalue into service",
+            "description": null
+        },
+        {
+            "id": "service-use-a-parameter",
+            "name": "Service: use a parameter",
+            "description": null
+        },
+        {
+            "id": "service-turn-on-twig-debugging",
+            "name": "Service: Turn on Twig debugging",
+            "description": null
+        },
+        {
+            "id": "event-beginning-subscriber",
+            "name": "Event: Beginning subscriber",
+            "description": null
+        },
+        {
+            "id": "event-reading-request",
+            "name": "Event: Reading request",
+            "description": null
+        },
+        {
+            "id": "event-inject-logger",
+            "name": "Event: Inject logger",
+            "description": null
+        },
+        {
+            "id": "renderarray-return-title",
+            "name": "RenderArray: return title",
+            "description": null
         }
     ],
-    "sha": "8d09d97a6e846da41a98bdcaea83641174ce2565"
+    "sha": "718ca0b48169c9ddded78e7065630ef69fd7b24d"
 }

@@ -1,0 +1,15 @@
+diff --git a/modules/dino_roar/src/Controller/RoarController.php b/modules/dino_roar/src/Controller/RoarController.php
+index 2ad60c2..e3b94ad 100644
+--- a/modules/dino_roar/src/Controller/RoarController.php
++++ b/modules/dino_roar/src/Controller/RoarController.php
+@@ -28,7 +28,10 @@ public static function create(ContainerInterface $container)
+ 
+     public function roar($count)
+     {
++        $keyValueStore = $this->keyValue('dino');
++
+         $roar = $this->roarGenerator->getRoar($count);
++        $keyValueStore->set('roar_string', $roar);
+ 
+         return new Response($roar);
+     }

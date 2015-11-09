@@ -1,0 +1,26 @@
+diff --git a/modules/dino_roar/src/Jurassic/DinoListener.php b/modules/dino_roar/src/Jurassic/DinoListener.php
+index 1abed95..8b6b67a 100644
+--- a/modules/dino_roar/src/Jurassic/DinoListener.php
++++ b/modules/dino_roar/src/Jurassic/DinoListener.php
+@@ -3,13 +3,19 @@
+ namespace Drupal\dino_roar\Jurassic;
+ 
+ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
++use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+ use Symfony\Component\HttpKernel\KernelEvents;
+ 
+ class DinoListener implements EventSubscriberInterface
+ {
+-    public function onKernelRequest($event)
++    public function onKernelRequest(GetResponseEvent $event)
+     {
+-        var_dump($event);die;
++        $request = $event->getRequest();
++        $shouldRoar = $request->query->get('roar');
++
++        if ($shouldRoar) {
++            var_dump('ROOOOOOOOAR');die;
++        }
+     }
+ 
+     public static function getSubscribedEvents()

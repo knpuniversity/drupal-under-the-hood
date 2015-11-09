@@ -1,0 +1,64 @@
+diff --git a/modules/dino_roar/dino_roar.services.yml b/modules/dino_roar/dino_roar.services.yml
+index eb1126a..42194e7 100644
+--- a/modules/dino_roar/dino_roar.services.yml
++++ b/modules/dino_roar/dino_roar.services.yml
+@@ -1,5 +1,9 @@
++parameters:
++    dino.roar.use_key_value_cache: true
++
+ services:
+     dino_roar.roar_generator:
+         class: Drupal\dino_roar\Jurassic\RoarGenerator
+         arguments:
+             - '@keyvalue'
++            - '%dino.roar.use_key_value_cache%'
+diff --git a/modules/dino_roar/src/Jurassic/RoarGenerator.php b/modules/dino_roar/src/Jurassic/RoarGenerator.php
+index 75c77ce..99eef25 100644
+--- a/modules/dino_roar/src/Jurassic/RoarGenerator.php
++++ b/modules/dino_roar/src/Jurassic/RoarGenerator.php
+@@ -7,10 +7,12 @@
+ class RoarGenerator
+ {
+     private $keyValueFactory;
++    private $useCache;
+ 
+-    public function __construct(KeyValueFactoryInterface $keyValueFactory)
++    public function __construct(KeyValueFactoryInterface $keyValueFactory, $useCache)
+     {
+         $this->keyValueFactory = $keyValueFactory;
++        $this->useCache = $useCache;
+     }
+ 
+     public function getRoar($length)
+@@ -18,14 +20,17 @@ public function getRoar($length)
+         $store = $this->keyValueFactory->get('dino');
+         $key = 'roar_'.$length;
+ 
+-        if ($store->has($key)) {
++        if ($this->useCache && $store->has($key)) {
+             return $store->get($key);
+         }
+ 
+         sleep(2);
+ 
+         $string = 'R'.str_repeat('O', $length).'AR!';
+-        $store->set($key, $string);
++
++        if ($this->useCache) {
++            $store->set($key, $string);
++        }
+ 
+         return $string;
+     }
+diff --git a/sites/development.services.yml b/sites/development.services.yml
+index 73cc998..90dfcf4 100644
+--- a/sites/development.services.yml
++++ b/sites/development.services.yml
+@@ -5,3 +5,7 @@
+ services:
+   cache.backend.null:
+     class: Drupal\Core\Cache\NullBackendFactory
++
++parameters:
++  dino.roar.use_key_value_cache: false
++

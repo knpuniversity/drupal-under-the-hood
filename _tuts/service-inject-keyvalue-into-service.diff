@@ -1,0 +1,64 @@
+diff --git a/modules/dino_roar/dino_roar.services.yml b/modules/dino_roar/dino_roar.services.yml
+index 4869c3f..eb1126a 100644
+--- a/modules/dino_roar/dino_roar.services.yml
++++ b/modules/dino_roar/dino_roar.services.yml
+@@ -1,3 +1,5 @@
+ services:
+     dino_roar.roar_generator:
+         class: Drupal\dino_roar\Jurassic\RoarGenerator
++        arguments:
++            - '@keyvalue'
+diff --git a/modules/dino_roar/src/Controller/RoarController.php b/modules/dino_roar/src/Controller/RoarController.php
+index c80fb22..2ad60c2 100644
+--- a/modules/dino_roar/src/Controller/RoarController.php
++++ b/modules/dino_roar/src/Controller/RoarController.php
+@@ -28,11 +28,7 @@ public static function create(ContainerInterface $container)
+ 
+     public function roar($count)
+     {
+-        $keyValueStore = $this->keyValue('dino');
+-
+-        //$roar = $this->roarGenerator->getRoar($count);
+-        //$keyValueStore->set('roar_string', $roar);
+-        $roar = $keyValueStore->get('roar_string');
++        $roar = $this->roarGenerator->getRoar($count);
+ 
+         return new Response($roar);
+     }
+diff --git a/modules/dino_roar/src/Jurassic/RoarGenerator.php b/modules/dino_roar/src/Jurassic/RoarGenerator.php
+index a66346f..75c77ce 100644
+--- a/modules/dino_roar/src/Jurassic/RoarGenerator.php
++++ b/modules/dino_roar/src/Jurassic/RoarGenerator.php
+@@ -2,10 +2,31 @@
+ 
+ namespace Drupal\dino_roar\Jurassic;
+ 
++use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
++
+ class RoarGenerator
+ {
++    private $keyValueFactory;
++
++    public function __construct(KeyValueFactoryInterface $keyValueFactory)
++    {
++        $this->keyValueFactory = $keyValueFactory;
++    }
++
+     public function getRoar($length)
+     {
+-        return 'R'.str_repeat('O', $length).'AR!';
++        $store = $this->keyValueFactory->get('dino');
++        $key = 'roar_'.$length;
++
++        if ($store->has($key)) {
++            return $store->get($key);
++        }
++
++        sleep(2);
++
++        $string = 'R'.str_repeat('O', $length).'AR!';
++        $store->set($key, $string);
++
++        return $string;
+     }
+ }

@@ -1,0 +1,10 @@
+diff --git a/sites/development.services.yml b/sites/development.services.yml
+index 90dfcf4..c953c56 100644
+--- a/sites/development.services.yml
++++ b/sites/development.services.yml
+@@ -9,3 +9,5 @@ services:
+ parameters:
+   dino.roar.use_key_value_cache: false
+ 
++  twig.config:
++    debug: true

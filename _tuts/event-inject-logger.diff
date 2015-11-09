@@ -1,0 +1,46 @@
+diff --git a/modules/dino_roar/dino_roar.services.yml b/modules/dino_roar/dino_roar.services.yml
+index 315b461..6db56cc 100644
+--- a/modules/dino_roar/dino_roar.services.yml
++++ b/modules/dino_roar/dino_roar.services.yml
+@@ -10,6 +10,6 @@ services:
+ 
+     dino_roar.dino_listener:
+         class: Drupal\dino_roar\Jurassic\DinoListener
+-        arguments: []
++        arguments: ['@logger.factory']
+         tags:
+             - { name: event_subscriber }
+diff --git a/modules/dino_roar/src/Jurassic/DinoListener.php b/modules/dino_roar/src/Jurassic/DinoListener.php
+index 8b6b67a..21638b6 100644
+--- a/modules/dino_roar/src/Jurassic/DinoListener.php
++++ b/modules/dino_roar/src/Jurassic/DinoListener.php
+@@ -2,19 +2,28 @@
+ 
+ namespace Drupal\dino_roar\Jurassic;
+ 
++use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+ use Symfony\Component\HttpKernel\KernelEvents;
+ 
+ class DinoListener implements EventSubscriberInterface
+ {
++    private $loggerChannel;
++
++    public function __construct(LoggerChannelFactoryInterface $loggerChannel)
++    {
++        $this->loggerChannel = $loggerChannel;
++    }
++
+     public function onKernelRequest(GetResponseEvent $event)
+     {
+         $request = $event->getRequest();
+         $shouldRoar = $request->query->get('roar');
+ 
+         if ($shouldRoar) {
+-            var_dump('ROOOOOOOOAR');die;
++            $channel = $this->loggerChannel->get('default')
++                ->debug('ROOOOOOOOAR');
+         }
+     }
+ 

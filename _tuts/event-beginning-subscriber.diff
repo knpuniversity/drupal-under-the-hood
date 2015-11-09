@@ -1,0 +1,43 @@
+diff --git a/modules/dino_roar/dino_roar.services.yml b/modules/dino_roar/dino_roar.services.yml
+index 42194e7..315b461 100644
+--- a/modules/dino_roar/dino_roar.services.yml
++++ b/modules/dino_roar/dino_roar.services.yml
+@@ -7,3 +7,9 @@ services:
+         arguments:
+             - '@keyvalue'
+             - '%dino.roar.use_key_value_cache%'
++
++    dino_roar.dino_listener:
++        class: Drupal\dino_roar\Jurassic\DinoListener
++        arguments: []
++        tags:
++            - { name: event_subscriber }
+diff --git a/modules/dino_roar/src/Jurassic/DinoListener.php b/modules/dino_roar/src/Jurassic/DinoListener.php
+new file mode 100644
+index 0000000..1abed95
+--- /dev/null
++++ b/modules/dino_roar/src/Jurassic/DinoListener.php
+@@ -0,0 +1,22 @@
++<?php
++
++namespace Drupal\dino_roar\Jurassic;
++
++use Symfony\Component\EventDispatcher\EventSubscriberInterface;
++use Symfony\Component\HttpKernel\KernelEvents;
++
++class DinoListener implements EventSubscriberInterface
++{
++    public function onKernelRequest($event)
++    {
++        var_dump($event);die;
++    }
++
++    public static function getSubscribedEvents()
++    {
++        return [
++            KernelEvents::REQUEST => 'onKernelRequest',
++        ];
++    }
++
++}
+\ No newline at end of file
