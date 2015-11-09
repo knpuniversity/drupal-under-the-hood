@@ -1,0 +1,31 @@
+diff --git a/modules/dino_roar/dino_roar.routing.yml b/modules/dino_roar/dino_roar.routing.yml
+new file mode 100644
+index 0000000..b5fe6fc
+--- /dev/null
++++ b/modules/dino_roar/dino_roar.routing.yml
+@@ -0,0 +1,6 @@
++dino_says:
++    path: /the/dino/says
++    defaults:
++        _controller: Drupal\dino_roar\Controller\RoarController::roar
++    requirements:
++        _permission: 'access content'
+diff --git a/modules/dino_roar/src/Controller/RoarController.php b/modules/dino_roar/src/Controller/RoarController.php
+new file mode 100644
+index 0000000..bfa41c4
+--- /dev/null
++++ b/modules/dino_roar/src/Controller/RoarController.php
+@@ -0,0 +1,13 @@
++<?php
++
++namespace Drupal\dino_roar\Controller;
++
++use Symfony\Component\HttpFoundation\Response;
++
++class RoarController
++{
++    public function roar()
++    {
++        return new Response('ROOOOOAR!');
++    }
++}

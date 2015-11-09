@@ -1,0 +1,20 @@
+{
+    "steps": [
+        {
+            "id": "start",
+            "name": "start",
+            "description": null
+        },
+        {
+            "id": "module-create-info-file",
+            "name": "Module: Create info file",
+            "description": null
+        },
+        {
+            "id": "module-add-routing-controller",
+            "name": "Module: Add routing\/controller",
+            "description": null
+        }
+    ],
+    "sha": "3539da17f9a282d5960a61e36c2336ae1f76e07d"
+}
