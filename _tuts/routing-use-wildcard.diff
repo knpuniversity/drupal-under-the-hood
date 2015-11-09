@@ -1,0 +1,27 @@
+diff --git a/modules/dino_roar/dino_roar.routing.yml b/modules/dino_roar/dino_roar.routing.yml
+index b5fe6fc..1d5f564 100644
+--- a/modules/dino_roar/dino_roar.routing.yml
++++ b/modules/dino_roar/dino_roar.routing.yml
+@@ -1,5 +1,5 @@
+ dino_says:
+-    path: /the/dino/says
++    path: /the/dino/says/{count}
+     defaults:
+         _controller: Drupal\dino_roar\Controller\RoarController::roar
+     requirements:
+diff --git a/modules/dino_roar/src/Controller/RoarController.php b/modules/dino_roar/src/Controller/RoarController.php
+index bfa41c4..df9f6e0 100644
+--- a/modules/dino_roar/src/Controller/RoarController.php
++++ b/modules/dino_roar/src/Controller/RoarController.php
+@@ -6,8 +6,9 @@
+ 
+ class RoarController
+ {
+-    public function roar()
++    public function roar($count)
+     {
+-        return new Response('ROOOOOAR!');
++        $roar = 'R'.str_repeat('O', $count).'AR!';
++        return new Response($roar);
+     }
+ }

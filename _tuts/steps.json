@@ -14,7 +14,12 @@
             "id": "module-add-routing-controller",
             "name": "Module: Add routing\/controller",
             "description": null
+        },
+        {
+            "id": "routing-use-wildcard",
+            "name": "Routing: Use wildcard",
+            "description": null
         }
     ],
-    "sha": "3539da17f9a282d5960a61e36c2336ae1f76e07d"
+    "sha": "543ff5239cb53816f67c488b44de0065ec41374f"
 }
