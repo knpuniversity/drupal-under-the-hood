@@ -1,4 +1,4 @@
-# Installation
+# Installation, Composer and Git!
 
 Hello Drupal people! I'm Ryan, and I come from the magical world of Symfony, full
 of gumdrops, rainbows, interfaces, services, dependency injection and lollipops.

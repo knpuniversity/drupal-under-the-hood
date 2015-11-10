@@ -13,6 +13,10 @@ chapters:
         is_finished: false
     modules-routes-controllers:
         is_finished: false
+    drupal-console-route-cache:
+        is_finished: false
+    routing-wildcards:
+        is_finished: false
     debugging-webprofiler:
         is_finished: false
     services:
