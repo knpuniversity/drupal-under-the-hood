@@ -17,7 +17,9 @@ chapters:
         is_finished: false
     routing-wildcards:
         is_finished: false
-    debugging-webprofiler:
+    debugging:
+        is_finished: false
+    webprofiler:
         is_finished: false
     services:
         is_finished: false

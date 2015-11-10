@@ -82,7 +82,7 @@ git init
 ```
 
 In PhpStorm, you can see an `example.gitignore` file. Refactor-Rename that to `.gitignore`.
-Open it and uncomment out the `vendor` line to ignore that directory. The proejct
+Open it and uncomment out the `vendor` line to ignore that directory. The project
 also has `composer.json` and `composer.lock` files. Composer is PHP's package manager,
 and it has changed *everything* in our world. If you aren't familiar with it, go
 watch our [Composer tutorial](http://knpuniversity.com/screencast/composer)!

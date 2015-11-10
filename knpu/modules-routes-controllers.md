@@ -6,7 +6,7 @@ Let's do something fun, like create a custom page. Like always, any custom code 
 live in a module. And modules live in the `modules/` directory. Create a new one
 called `dino_roar`. To make Drupal fall in love with your module, create the info
 file: `dino_roar.info.yml`. If you loved the old `.info` files, then you'll feel
-all warmy and fuzzy with these: it's the same thing, but now in the YAML format.
+all warm and fuzzy with these: it's the same thing, but now in the YAML format.
 
 Inside give it a `name`: `Dino ROAR`, a `type`: `module`, `description`: `Roar at you`,
 `package`: `Sample` and `core`: `8.x`. If YAML is new to you, cool! It's pretty
