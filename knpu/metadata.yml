@@ -1,0 +1,25 @@
+title:  "Drupal Under the Hood"
+summary: |
+    Summary goes here
+
+illustration: drupal-hood.png
+
+tuts_hero:
+    start_step: ''
+    finish_step: ''
+
+chapters:
+    installation:
+        is_finished: false
+    modules-routes-controllers:
+        is_finished: false
+    debugging-webprofiler:
+        is_finished: false
+    services:
+        is_finished: false
+    service-arguments:
+        is_finished: false
+    config-parameters:
+        is_finished: false
+    event-subscriber-render-array:
+        is_finished: false
