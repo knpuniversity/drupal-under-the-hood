@@ -93,4 +93,4 @@ That's it! That's everything. Go to your browser and head to `/the/dino/says`:
 > http://localhost:8000/the/dino/says
 
 Hmm page not found. As a seasoned Drupal developer, you may be wonder, "uhh do I
-need to clear some cache?" You're right!
+need to clear some cache?" My gosh, you're right!
