@@ -1,84 +1,135 @@
 # Installation
 
-Hello Drupal people! I'm Ryan, and I come from the world of Symfony. I work
-on the Symfony core documentation team, which may not seem like the most obvious
-person to be teaching you about Drupal 8, but as you're going to see, Drupal 8
-and Symfony have a lot in common. 
+Hello Drupal people! I'm Ryan, and I come from the magical world of Symfony, full
+of gumdrops, rainbows, interfaces, services, dependency injection and lollipops.
+Along with a few other oompa loompas, I lead the Symfony documentation team, so I
+may not seem like the most obvious person to be teaching you about Drupal 8. But
+Drupal 8 has taken a *huge* leap forward by using common coding patterns and libraries.
+This makes Drupal a lot easier and more accessible to a lot of people.
 
-This series is meant for developers who have worked with Drupal before. This tutorial
-isn't about how to use Drupal, but how to use Drupal 8, how it works and how to get
-under the hood to pull apart the pieces to see what's really going on. 
+This series is meant for developers who have used Drupal before. Instead of learning
+how to use it, we're going to rip apart the layers and see how this machine runs.
+That's going to make you more dangerous and uncover possibilities you wouldn't otherwise
+know about.
 
-Download Drupal 8, which at this moment isn't quite released, but it will be in one
-short week!
+## Download D8
 
-This unzips it to my downloads directory, and I'll move it over to a `drupal8` directory.
-And we can see all of our shiny new files here in my editor, which is PhpStorm. 
+Start by downloading Drupal 8, which at this moment isn't quite released, but it will
+*very* soon! This unzips the file to my `Downloads` directory. I'll move it to a
+`drupal8` directory. We can see all of our shiny new files here in my editor my shiny
+PhpStorm editor.
 
+## The Built-in PHP Web Server
 
-Move into our new `drupal8` directory and now that we're here we're going to need a webserver. 
-I'm not going to use apache or nginx because I'm just doing stuff locally, so I'll use the 
-built in php web server. Which we start with `php -S localhost:8000`. I highly recommend using 
-this in your development environmnent. 
+Move into the `drupal8` directory. We need a webserver! But I'm not going waste time
+setting up Apache or Nginx locally. Instead, I'll use the built-in PHP web server.
+Start it by running `php -S localhost:8000`:
 
-Over in the browser navigate to localhost:8000, and there is the Drupal 8 install screen! 
-So far so good. We'll go through this part quickly, pick the standard installation to
-get a few more features. On the next step it looks like I have a requirements problem with
-my xdebug. It wants me to set that to 256, that's pretty easy to do. Back in the terminal 
-open a new tab and run `php --ini` because that tells me where my php.ini file lives.
-Then I'll open that using vim, but you can use whatever you want to open it. 
+```bash
+php -S localhost:8000
+```
 
-Search in this file for that setting, it's already in my file so I'll set it to 256
-but if you find you don't have it just add the whole setting at the bottom. To make
-this change take affect I'll `control+c` out of the web server and start it up again. 
-Now we should be good to keep going. Great! Database configuration. 
+This serves files from *this* directory
+and will hang there until you stop it. I highly recommend using this to develop.
 
-Type in your database credentials, my database is called `d8_under_hood` and for the username
-I use root with no password because that's how my machine is setup. 
+In the browser, navigate to `http://localhost:8000`. Hello Drupal 8 install screen!
+Pick the standard installation to get a few more features.
 
-Now go grab some coffee or a sandwhich while Drupal does it's installation thing. 
+## Fixing php.ini problems
 
-Alright! On to configuring the actual site. Start with a clever name and an email address. Ideally
-you will pick something other than my email. And of course a really strong password, I'll pick
-admin/admin. To wrap up the form I'll go ahead and select my country and hit save. 
+On the next step, I have a problem: the `xdebug.max_nesting_level` setting in php.ini
+is set too low. Wah wah.
 
-Congratulations! You now have a working Drupal 8 site! Let's get this thing stored in git immediately.
-No time like the present for version control! 
+Bah, it's easy to fix. Go back to the terminal and open a new tab. Run `php --ini`:
 
-Back over in the terminal run `git init` to initialize the repo. Over in our IDE we can see that there
-is a `example.gitignore` file. I'll refactor/rename that to just `.gitignore`, open it up and uncomment
-out the vendor line, we definitely want that to be ignored. 
+```bash
+php --ini
+```
 
-We also have `composer.json` and `composer.lock` files. Composer is PHP's package manager, if you 
-aren't familiar with it we have a full tutorial on it that I encourage you to go watch.
+This will tell you *where* the `php.ini` file lives. Open it with your favorite editor.
+I like `vim`, because it gives me street cred.
 
-Technically, with this `composer.json` file you should not need to commit the vendor or core directories.
-Another developer should be able to arrive, run `composer install` and bot vendor and core should be 
-downloaded for them. 
+***TIP
+In some setups (specifically OSX), there will be *no* value for "Loaded Configuration File".
+Usually, there *is* a file in the "Configuration File (php.ini) Path" directory,
+but it's named something like `php.ini.development`. Rename this file to `php.ini`
+and run `php --ini` again.
+***
 
-When I tried to do that I had a little trouble with the core director and autoloading, so I think 
-there might be a small bug there. But, we'll still cover the proper way to use composer in the future
-with Drupal. For now it's safe to not commit the vendor directory since it will install correctly when 
-you run `composer install`. 
+Search for the setting! It already exists in my file, so I'll set it to 256. If it
+doesn't exist in your file, just add at the bottom. For this change to take effect,
+restart your web server. For us, hit `control+c` to kill the PHP web server and then
+start it again.
 
-Zip back over to the terminal and run `git add .` and then `git status`, there are a lot of core files,
-so it will be nice to not have to commit them to the repo eventually. Other than these core files, there
-aren't many that we are committing to our project just after install. That is awesome!
+That fixes it! Type in your database details: I'll call my database `d8_under_hood`
+and pass `root` with no password for my super secure local computer.
 
-Now run `git commit` and type in a clever commit message for your fellow contributors to enjoy, and we're
-good!
+Now go grab some coffee or a sandwich while Drupal does it's installation thing. 
 
-One more thing I want to emphasize is the importance of using a good editor when you are developing. We
-have Namespaces in PHP and other things that you are not going to want to write yourself. The best editor
-to do this for you is PhpStorm. Other good ones include Atom and Sublime Text, but I do prefer PhpStorm. 
+Ding! Give your site a clever name and an email address. Um, but enter *your* email,
+not mine. The super-secret and secure password I'm using is `admin`. Select your country
+and hit save.
 
-In this IDE there's a Symfony plugin which works really nicely for Drupal as well. Score! Down under plugins,
-head to browse repositories, search for Symfony. You'll find this awesome Symfony plugin down here that has
-1.3 million downloads. If you don't have this installed yet, do it. I already have it and I'm not going to
-update it. If you're installing it fresh you'll need to restart PhpStorm, and then head back into Preferences,
-plugins and this time when you search Symfony, there will be a new symfony plugin menu in the tree there 
-and you will need to check `Enable Plugin for this project`. 
+Phew! I mean congrats! You now have a working Drupal 8 site!
 
-Doing this will give you some really nice autocompletion that's specific to Drupal and Symfony.
+## Storing in Git and Composer
 
-Sweet, we're up and running! Let's get into the actual code!
+You know what I love most about a new project? Creating a new git repo. Seriously,
+how often do you get to type `git init`?
+
+```bash
+git init
+```
+
+In PhpStorm, you can see an `example.gitignore` file. Refactor-Rename that to `.gitignore`.
+Open it and uncomment out the `vendor` line to ignore that directory. The proejct
+also has `composer.json` and `composer.lock` files. Composer is PHP's package manager,
+and it has changed *everything* in our world. If you aren't familiar with it, go
+watch our [Composer tutorial](http://knpuniversity.com/screencast/composer)!
+Seriously, you can use it in Drupal 7...we do in that tutorial...
+
+Because of the `composer.json` file, you should *not* need to commit the `vendor/`
+directory. You should also not need to commit the `core/` directory where all of
+Drupal lives, due to some special Composer setup in Drupal. Another developer should
+be able to clone the project, run `composer install` and both `vendor/` and `core/`
+will be downloaded for them.
+
+When I tried to do that, I had a little trouble with the `core/` directory due to
+an autoloading quirk. Hey, it's not released yet, so there could be a bug. It's cool.
+
+In another screencast, I'll show you the proper way to use Composer with Drupal.
+But for now it's safe to *not* commit the `vendor/` directory at least. If you run
+`composer install`, it'll populate that directory correctly.
+
+Zip back over to the terminal and run `git add .` and then `git status`. There are
+a lot of files in `core/`, so it *will* be nice to not have to commit those someday.
+But other than these `core/` files, we're not committing much. A new Drupal "project"
+doesn't contain many files.
+
+Finish this by typing `git commit` and typing in a clever commit message for your
+fellow contributors to enjoy. Done!
+
+## Please, Please use a Decent Editor
+
+I have a secret to tell you that will make your Drupal 8 experience many times better:
+use a decent editor, the best is PhpStorm. Atom and Sublime are also pretty good.
+But if you use Notepad++ or open some directory explorer to dig for files manually,
+there will be *no* rainbows, Pixy Sticks or Gumball drops in your Drupal 8 experience.
+Your editor must be able to auto-complete, have a directory tree and have a keyboard
+shortcut to open files by filename. Ok, I've warned you!
+
+## PhpStorm Symfony Plugin = Joy
+
+If you *do* use PhpStorm... which would make you my best friend... it has a Symfony
+plugin that plays nicely with Drupal too. Score! In Preferences, under plugins, click
+browse repositories and search for "Symfony". You'll find this awesome Symfony plugin
+that has over 1.3 million downloads! If you don't have this installed yet, do it.
+I already have it. After installing, it'll ask you to restart PhpStorm. Once it's
+open again, head back to Preferences, search for Symfony, and you'll find a new
+Symfony plugin menu. Make sure you check the `Enable Plugin for this project` box.
+Remember to check this for each new project.
+
+This plugin will give you some pretty sweet autocompletion that's specific to Drupal
+and Symfony.
+
+Sweet! We're up and running! Let's get into the code!
