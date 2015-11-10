@@ -71,3 +71,14 @@ good!
 One more thing I want to emphasize is the importance of using a good editor when you are developing. We
 have Namespaces in PHP and other things that you are not going to want to write yourself. The best editor
 to do this for you is PhpStorm. Other good ones include Atom and Sublime Text, but I do prefer PhpStorm. 
+
+In this IDE there's a Symfony plugin which works really nicely for Drupal as well. Score! Down under plugins,
+head to browse repositories, search for Symfony. You'll find this awesome Symfony plugin down here that has
+1.3 million downloads. If you don't have this installed yet, do it. I already have it and I'm not going to
+update it. If you're installing it fresh you'll need to restart PhpStorm, and then head back into Preferences,
+plugins and this time when you search Symfony, there will be a new symfony plugin menu in the tree there 
+and you will need to check `Enable Plugin for this project`. 
+
+Doing this will give you some really nice autocompletion that's specific to Drupal and Symfony.
+
+Sweet, we're up and running! Let's get into the actual code!
