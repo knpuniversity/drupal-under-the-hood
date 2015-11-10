@@ -41,3 +41,51 @@ is either `roar` or `rooooooar` depending on how long the count is.
 Suppose that this line here is actualy something very complicated. Maybe it took 50 lines of code. We could
 have 50 lines in our controller, the downside of that is it makes our controller function difficult to read.
 And any code that you put in your controller function is not reusable elsewhere. 
+
+Instead, take this code and put it somewhere else. Some other class that you create that Drupal doesn't care
+about to help organize your code. In my `src` directory I'll create a new directory called `jurassic`, the
+name you give this doesn't matter. And inside of this new directory create a php class called `RoarGenerator`.
+
+Just like with controllers, every single class in the `src` directory needs to have a namespace that follows the
+standard of `Drupal\` module name `\` whatever directory or directories that you're in. In this case we're just in
+one subdirectory called `jurassic`. And then the class name matches the file name `RoarGenerator`. 
+
+This class has nothing to do with Drupal, it's just our class so it doesn't need to extend anything. And we can
+make it do whatever we want. Create a `public function getRoar()` which will take a `$length` argument. Head over
+to `RoarController` and copy the code that creates that. Replace `$count` with `$length` and return that value. 
+
+Great! Now we have our imaginary complex code moved elsewhere. How do we create this? Good news, it's quite easy!
+
+Start with a `$roarGenerator` in your controller and set it `= new RoarGenerator();` and when I hit the tab key
+there it autocompleted my line and added the use statement up top. Below that line update what we have to be
+`$roar = $roarGenerator->getRoar();` and pass it `$count`. 
+
+Nothing special going on here, we're just moving our logic to an outside class, then instantiating that object
+and calling a method on it. Because our namespace is following this pattern here we don't need to worry about
+require statements, that class is going ot be automatically found. We can just use it. 
+
+This has nothing to do with Drupal or Symfony, it's just good object oriented code. Let's give it a shot!
+
+Back in the browser navigate to localhost:8000/the/dino/says/50 and we see the scary roar meaning everything
+works just fine. 
+
+Now we're ready to talk about that service container thing. Head over to the terminal and run Drupal Console's
+task `container:debug`. This prints out every single service in the container. This huge list here is all of them.
+On the left you have the nickname of the service which is what you'll use if you want to use that service. On
+the right it tells you what type of object you are going to get out. 
+
+Most of the services here you won't use directly but you do see some like cron, database which is the database
+connection, file_system and a few other ones that you will use.
+
+Before we get into how to use these in your controller and other places, I want to put our `roarGenerator` 
+into the service container. What that means is that instead of instantiating it directly, we'll teach
+Drupal's container how to instantiate the `roarGenerator`. Then we'll ask the container for it and the
+container will make it for us.
+
+Why would you do this? Hold on, you'll see the benefits shortly. To register a service, at the root of your
+module create a `dino_roar.services.yml` file. Inside of this file start with a `services` key. For the service
+container to create a `roarGenerator` for us it needs to know two things: what's your spirit animal and your
+favorite color. I mean, first the nickname of our service and this can be anything, I'll keep with our theme
+and use `dino_roar.roar_generator`. You want this to be short but somewhat unique and all lowercase alphanumeric
+characters with exceptions for `_` and `.`.  
+
