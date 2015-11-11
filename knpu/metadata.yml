@@ -18,8 +18,8 @@ summary: |
 illustration: drupal-hood.png
 
 tuts_hero:
-    start_step: ''
-    finish_step: ''
+    start_step: 'start'
+#    finish_step: ''
 
 chapters:
     installation:
