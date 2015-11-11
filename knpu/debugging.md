@@ -20,9 +20,9 @@ sudo chmod 755 sites/default/settings.php
 sudo chmod 755 sites/default
 ```
 
-The `settings.local.php` actiates several things that are good for debugging, like
+The `settings.local.php` file activates several things that are good for debugging, like
 a `verbose` error level. It also loads a `development.services.yml` file that we're
-going to talk about soon. But jsut having `settings.local.php` isn't enough! Open
+going to talk about soon. But just having `settings.local.php` isn't enough! Open
 `settings.php`. At the bottom, uncomment out the lines so that this file is loaded.
 
 Of course, we need to rebuild our cache and the Drupal Console in all its wisdom
@@ -40,7 +40,7 @@ and you can take advantage of it to create really cool command line scripts like
 this if you want to. It's one of the *best* pieces of Symfony.
 
 Back in the browser, if you refresh now, there's no difference: everything is roaring
-along. But, try deleting `roar()` function and refresh. Now we get a nice error that
+along. But, try deleting the `roar()` function and refresh. Now we get a nice error that
 says:
 
 > The controller for URI /the/dino/says/50 is not callable.
@@ -66,6 +66,6 @@ trying to figure out what's going on in a project. This includes the admin route
 and our custom route.
 
 To get more information about a route, copy it's internal name - that's the part
-on the left - and pass it as the second argument to `router:debug`. The route has
-several curly brance routing wildcards that are passed to the `getForm` method of
+on the left - and pass it as ans argument to `router:debug`. This route has
+several curly brace routing wildcards that are passed to the `getForm` method of
 this controller class. This is pretty sweet, but we can go further!

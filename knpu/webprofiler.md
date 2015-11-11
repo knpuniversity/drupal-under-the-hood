@@ -33,7 +33,7 @@ short summary of the information about the last request. The profiler has *tons*
 more.
 
 If you want to see all of the routes, click the Routing tab. This is the same list
-that the Drupal consoel showed us.
+that the Drupal console showed us.
 
 There are lots of other treats in here: it's like a Drupal Halloween! For example,
 Performance Timing checks how fast the frontend of your site is rendering. The timeline
@@ -49,10 +49,10 @@ pretty well without them, so I skipped that part to save us time.
 ## Reverse Engineering an Admin Page
 
 Now that we have this, click on the admin "Structure" page. Obviously, this page comes
-from Drupal. But how does it work? Go down to teh toolbar and hover over the 200
+from Drupal. But how does it work? Go down to the toolbar and hover over the 200
 status code. Ha! This tells us exactly what controller renders this page. If you
 see the `D\s\C` stuff, that stands for `Drupal\System\Controller`. The web profiler
-tries to shorten things: ust Hover over this syntax to see the full class name.
+tries to shorten things: just Hover over this syntax to see the full class name.
 
 If you wanted to reverse engineer this page, you could! I'll use the keyboard shortcut
 `shift+shift` to search the project for `SystemController`. Here's the class! Now,

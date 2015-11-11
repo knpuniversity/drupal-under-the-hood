@@ -16,7 +16,7 @@ know about.
 
 Start by downloading Drupal 8, which at this moment isn't quite released, but it will
 *very* soon! This unzips the file to my `Downloads` directory. I'll move it to a
-`drupal8` directory. We can see all of our shiny new files here in my editor my shiny
+`drupal8` directory. We can see all of our shiny new files here in my shiny
 PhpStorm editor.
 
 ## The Built-in PHP Web Server

@@ -15,9 +15,9 @@ one space after the colon. Yaml also supports hierarchies of data via indentatio
 but there's none of that in this file.
 
 Module ready! Head back to the browser and go into the "Extend" section. With any
-we'll see the module here. There it is under "Sample": "Dino ROAR". It sounds terrifying.
-Check the box and press the install button anyways. What's the worst that could
-happen?
+luck  we'll see the module here. There it is under "Sample": "Dino ROAR". It sounds
+terrifying. Check the box and press the install button anyways. What's the worst
+that could happen?
 
 Nothing! But now we can build that page I keep talking about.
 
@@ -50,7 +50,8 @@ won't talk about permissions now, but this is what will allow us to view the pag
 
 In YAML, you usually don't *need* quotes, except in some edge cases with special
 characters. But it's always safe to surround values with quotes. So if you're in
-doubt, use quotes! I don't need them around `access content`... but it makes me feel.
+doubt, use quotes! I don't need them around `access content`... but it makes me fee
+good.
 
 ## Add a Controller Function
 
@@ -92,5 +93,5 @@ That's it! That's everything. Go to your browser and head to `/the/dino/says`:
 
 > http://localhost:8000/the/dino/says
 
-Hmm page not found. As a seasoned Drupal developer, you may be wonder, "uhh do I
+Hmm page not found. As a seasoned Drupal developer, you may be wondering, "uhh do I
 need to clear some cache?" My gosh, you're right!
