@@ -34,7 +34,13 @@ chapters:
         is_finished: false
     webprofiler:
         is_finished: false
-    services:
+    what-is-the-service-container:
+        is_finished: false
+    create-service:
+        is_finished: false
+    configure-service:
+        is_finished: false
+    get-service-from-container:
         is_finished: false
     service-arguments:
         is_finished: false
