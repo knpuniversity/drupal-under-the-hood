@@ -2,7 +2,7 @@
 
 The service container is the magician's hat of Drupal: it's full of useful objects,
 I mean "services" - we're trying to sound sophisticated. By default, the container
-is *filled* will cool stuff, like a logger fatory, a translator, a white rabbit and
+is *filled* will cool stuff, like a logger factory, a translator, a white rabbit and
 a database connection, just to name a few.
 
 ## List All Services
@@ -18,7 +18,7 @@ access to out-of-the-box. The nickname of each service is on the left: you'll us
 that to get that service. On the right, it tells you what type of object this will
 be.
 
-Most of the services here you won't need to use directly: some like `cron`, `database`
+Most of the services here you won't need to use directly: some like `cron`, `database`,
 `file_system` and a few other ones might be *really* useful to you.
 
 ## The module_name.services.yml File

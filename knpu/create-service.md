@@ -1,7 +1,7 @@
 ## Create a Service
 
 In `RoarController`, we use the `$count` variable to construct either a little
-`roar` or a bit `rooooooar`, depending on what's in the URL.
+`roar` or a big `rooooooar`, depending on what's in the URL.
 
 Let's use our imagination. Pretend that this line is actually quite complicated.
 Maybe it takes 50 lines of code to figure this out! We could keep all 50 lines in
