@@ -27,6 +27,7 @@ class RoarGenerator
         sleep(2);
 
         $string = 'R'.str_repeat('O', $length).'AR!';
+
         if ($this->useCache) {
             $store->set($key, $string);
         }
