@@ -9,3 +9,5 @@ services:
 parameters:
   dino.roar.use_key_value_cache: false
 
+  twig.config:
+    debug: true
