@@ -35,9 +35,12 @@ class RoarController extends ControllerBase
 
     public function roar($count)
     {
+        $keyValueStore = $this->keyValue('dino');
+
         $roar = $this->roarGenerator->getRoar($count);
         $this->loggerFactory->get('default')
             ->debug($roar);
+        $keyValueStore->set('roar_string', $roar);
 
         return new Response($roar);
     }
