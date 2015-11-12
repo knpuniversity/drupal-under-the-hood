@@ -1,5 +1,5 @@
 dino_says:
-    path: /the/dino/says
+    path: /the/dino/says/{count}
     defaults:
         _controller: Drupal\dino_roar\Controller\RoarController::roar
     requirements:
