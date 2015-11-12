@@ -1,0 +1,6 @@
+dino_says:
+    path: /the/dino/says
+    defaults:
+        _controller: Drupal\dino_roar\Controller\RoarController::roar
+    requirements:
+        _permission: 'access content'
