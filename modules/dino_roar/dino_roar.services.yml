@@ -10,6 +10,6 @@ services:
 
     dino_roar.dino_listener:
         class: Drupal\dino_roar\Jurassic\DinoListener
-        arguments: []
+        arguments: ['@logger.factory']
         tags:
             - { name: event_subscriber }
