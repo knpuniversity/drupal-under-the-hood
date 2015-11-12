@@ -39,6 +39,8 @@ class RoarController extends ControllerBase
         $this->loggerFactory->get('default')
             ->debug($roar);
 
-        return new Response($roar);
+        return [
+            '#title' => $roar
+        ];
     }
 }
