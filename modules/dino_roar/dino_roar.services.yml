@@ -7,3 +7,9 @@ services:
         arguments:
             - '@keyvalue'
             - '%dino.roar.use_key_value_cache%'
+
+    dino_roar.dino_listener:
+        class: Drupal\dino_roar\Jurassic\DinoListener
+        arguments: []
+        tags:
+            - { name: event_subscriber }
