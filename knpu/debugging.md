@@ -24,10 +24,12 @@ The `settings.local.php` file activates several things that are good for debuggi
 a `verbose` error level. It also loads a `development.services.yml` file that we're
 going to talk about soon:
 
-[[[ code('') ]]]
+[[[ code('381539723c') ]]]
 
-But just having `settings.local.php` isn't enough! Open
-`settings.php`. At the bottom, uncomment out the lines so that this file is loaded.
+But just having `settings.local.php` isn't enough! Open `settings.php`. At the bottom,
+uncomment out the lines so that this file is loaded:
+
+[[[ code('b27f31a97d') ]]]
 
 Of course, we need to rebuild our cache and the Drupal Console in all its wisdom
 has a command for that:
@@ -70,6 +72,6 @@ trying to figure out what's going on in a project. This includes the admin route
 and our custom route.
 
 To get more information about a route, copy it's internal name - that's the part
-on the left - and pass it as ans argument to `router:debug`. This route has
+on the left - and pass it as an argument to `router:debug`. This route has
 several curly brace routing wildcards that are passed to the `getForm` method of
 this controller class. This is pretty sweet, but we can go further!

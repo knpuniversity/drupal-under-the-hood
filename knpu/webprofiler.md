@@ -50,16 +50,23 @@ pretty well without them, so I skipped that part to save us time.
 
 Now that we have this, click on the admin "Structure" page. Obviously, this page comes
 from Drupal. But how does it work? Go down to the toolbar and hover over the 200
-status code. Ha! This tells us exactly what controller renders this page. If you
-see the `D\s\C` stuff, that stands for `Drupal\System\Controller`. The web profiler
-tries to shorten things: just Hover over this syntax to see the full class name.
+status code. Ha! This tells us exactly what controller renders this page:
+
+> Drupal\System\Controller\SystemController::systemAdminMenuBlockPage()
+
+If you see the `D\s\C` stuff, that stands for `Drupal\System\Controller`. The web
+profiler tries to shorten things: just Hover over this syntax to see the full class
+name.
 
 If you wanted to reverse engineer this page, you could! I'll use the keyboard shortcut
 `shift+shift` to search the project for `SystemController`. Here's the class! Now,
 look around for the method `systemAdminMenuBlockPage()`. And *this* is the actual
-function that renders the admin "Structure" page. In fact, if you add `return new Response('HI!')`
-and refresh, it'll completely replace the page! Try this and see if your co-workers
-can figure out what's going on!
+function that renders the admin "Structure" page:
+
+[[[ code('907dea65ca') ]]]
+
+In fact, if you add `return new Response('HI!')` and refresh, it'll completely replace
+the page! Try this and see if your co-workers can figure out what's going on!
 
 We don't know *yet* what this `systemManager` thing is or how to debug it, but we're
 going there next.
