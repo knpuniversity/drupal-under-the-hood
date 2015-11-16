@@ -26,7 +26,7 @@ index 4ff596a..99eef25 100644
              $store->set($key, $string);
          }
 diff --git a/sites/development.services.yml b/sites/development.services.yml
-index 73cc998..90dfcf4 100644
+index 73cc998..90dfcf4 100755
 --- a/sites/development.services.yml
 +++ b/sites/development.services.yml
 @@ -5,3 +5,7 @@

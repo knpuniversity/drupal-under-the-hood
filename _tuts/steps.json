@@ -21,6 +21,11 @@
             "description": null
         },
         {
+            "id": "debug-settings-local-php",
+            "name": "Debug: settings.local.php",
+            "description": null
+        },
+        {
             "id": "install-devel",
             "name": "Install devel",
             "description": null
@@ -91,5 +96,5 @@
             "description": null
         }
     ],
-    "sha": "698a2095664822456ad1a3ef275f93fe1878cd5d"
+    "sha": "1cbf0ba1248df877ebb14ad8eab02d14efaee6b8"
 }

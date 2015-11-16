@@ -1,5 +1,5 @@
 diff --git a/sites/development.services.yml b/sites/development.services.yml
-index 90dfcf4..c953c56 100644
+index 90dfcf4..c953c56 100755
 --- a/sites/development.services.yml
 +++ b/sites/development.services.yml
 @@ -9,3 +9,5 @@ services:

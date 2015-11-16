@@ -4177,7 +4177,7 @@ index 0000000..f694a0a
 +}
 diff --git a/libraries/highlight/styles/brown_papersq.png b/libraries/highlight/styles/brown_papersq.png
 new file mode 100644
-index 0000000..3813903
+index 0000000..8a9c040
 --- /dev/null
 +++ b/libraries/highlight/styles/brown_papersq.png
 @@ -0,0 +1,82 @@
@@ -8124,7 +8124,7 @@ index 0000000..49371d9
 +}
 diff --git a/libraries/highlight/styles/school_book.png b/libraries/highlight/styles/school_book.png
 new file mode 100644
-index 0000000..956e979
+index 0000000..83958c2
 --- /dev/null
 +++ b/libraries/highlight/styles/school_book.png
 @@ -0,0 +1,3 @@
