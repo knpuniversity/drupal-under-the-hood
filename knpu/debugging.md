@@ -26,7 +26,7 @@ going to talk about soon. But just having `settings.local.php` isn't enough! Ope
 `settings.php`. At the bottom, uncomment out the lines so that this file is loaded.
 
 Of course, we need to rebuild our cache and the Drupal Console in all its wisdom
-has a command for that: `cache:rebuild`:
+has a command for that:
 
 ```bash
 drupal cache:rebuild
