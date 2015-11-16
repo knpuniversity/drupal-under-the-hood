@@ -29,8 +29,8 @@ Start it by running `php -S localhost:8000`:
 php -S localhost:8000
 ```
 
-This serves files from *this* directory
-and will hang there until you stop it. I highly recommend using this to develop.
+This serves files from *this* directory and will hang there until you stop it. I
+highly recommend using this to develop.
 
 In the browser, navigate to `http://localhost:8000`. Hello Drupal 8 install screen!
 Pick the standard installation to get a few more features.
@@ -50,16 +50,25 @@ This will tell you *where* the `php.ini` file lives. Open it with your favorite 
 I like `vim`, because it gives me street cred.
 
 ***TIP
-In some setups (specifically OSX), there will be *no* value for "Loaded Configuration File".
+In some setups (I'm looking at you OSX), there will be *no* value for "Loaded Configuration File".
 Usually, there *is* a file in the "Configuration File (php.ini) Path" directory,
 but it's named something like `php.ini.development`. Rename this file to `php.ini`
 and run `php --ini` again.
 ***
 
 Search for the setting! It already exists in my file, so I'll set it to 256. If it
-doesn't exist in your file, just add at the bottom. For this change to take effect,
-restart your web server. For us, hit `control+c` to kill the PHP web server and then
-start it again.
+doesn't exist in your file, just add at the bottom:
+
+```ini
+xdebug.max_nesting_level = 256
+```
+
+For this change to take effect, restart your web server. For us, hit `control+c` to
+kill the PHP web server and then start it again:
+
+```bash
+php -S localhost:8000
+```
 
 That fixes it! Type in your database details: I'll call my database `d8_under_hood`
 and pass `root` with no password for my super secure local computer.
@@ -72,7 +81,7 @@ and hit save.
 
 Phew! I mean congrats! You now have a working Drupal 8 site!
 
-## Storing in Git and Composer
+## Storing in Git and talking Composer
 
 You know what I love most about a new project? Creating a new git repo. Seriously,
 how often do you get to type `git init`?
@@ -82,11 +91,17 @@ git init
 ```
 
 In PhpStorm, you can see an `example.gitignore` file. Refactor-Rename that to `.gitignore`.
-Open it and uncomment out the `vendor` line to ignore that directory. The project
-also has `composer.json` and `composer.lock` files. Composer is PHP's package manager,
-and it has changed *everything* in our world. If you aren't familiar with it, go
-watch our [Composer tutorial](http://knpuniversity.com/screencast/composer)!
-Seriously, you can use it in Drupal 7...we do in that tutorial...
+Open it and uncomment out the `vendor` line to ignore that directory:
+
+[[[ code('9c664bf257') ]]]
+
+The project also has `composer.json` and `composer.lock` files:
+
+[[[ code('e4c39a3a90') ]]]
+
+Composer is PHP's package manager, and it has changed *everything* in our world.
+If you aren't familiar with it, go watch our [Composer tutorial](http://knpuniversity.com/screencast/composer)!
+Seriously, you can use it in Drupal 7... we do in that tutorial...
 
 Because of the `composer.json` file, you should *not* need to commit the `vendor/`
 directory. You should also not need to commit the `core/` directory where all of
@@ -101,10 +116,16 @@ In another screencast, I'll show you the proper way to use Composer with Drupal.
 But for now it's safe to *not* commit the `vendor/` directory at least. If you run
 `composer install`, it'll populate that directory correctly.
 
-Zip back over to the terminal and run `git add .` and then `git status`. There are
-a lot of files in `core/`, so it *will* be nice to not have to commit those someday.
-But other than these `core/` files, we're not committing much. A new Drupal "project"
-doesn't contain many files.
+Zip back over to the terminal and run `git add .` and then `git status`:
+
+```bash
+git add .
+git status
+```
+
+There are a lot of files in `core/`, so it *will* be nice to not have to commit those
+someday. But other than these `core/` files, we're not committing much. A new Drupal
+"project" doesn't contain many files.
 
 Finish this by typing `git commit` and typing in a clever commit message for your
 fellow contributors to enjoy. Done!
@@ -120,9 +141,10 @@ shortcut to open files by filename. Ok, I've warned you!
 
 ## PhpStorm Symfony Plugin = Joy
 
-If you *do* use PhpStorm... which would make you my best friend... it has a Symfony
-plugin that plays nicely with Drupal too. Score! In Preferences, under plugins, click
-browse repositories and search for "Symfony". You'll find this awesome Symfony plugin
+If you *do* use PhpStorm... which would make you my best friend... it has a
+[Symfony plugin](http://knpuniversity.com/screencast/phpstorm/setup#plugins) that
+plays nicely with Drupal too. Score! In Preferences, under plugins, click browse
+repositories and search for "Symfony". You'll find this awesome Symfony plugin
 that has over 1.3 million downloads! If you don't have this installed yet, do it.
 I already have it. After installing, it'll ask you to restart PhpStorm. Once it's
 open again, head back to Preferences, search for Symfony, and you'll find a new
