@@ -22,7 +22,7 @@ tuts_hero:
 #    finish_step: ''
 
 chapters:
-    installation:
+    installation-web-server:
         is_finished: false
     modules-routes-controllers:
         is_finished: false
