@@ -23,7 +23,7 @@ tuts_hero:
 
 chapters:
     installation-web-server:
-        is_finished: false
+        video_key: 145949214
     modules-routes-controllers:
         is_finished: false
     drupal-console-route-cache:
