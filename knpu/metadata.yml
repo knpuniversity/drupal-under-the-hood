@@ -25,9 +25,9 @@ chapters:
     installation-web-server:
         video_key: 145949214
     modules-routes-controllers:
-        is_finished: false
+        video_key: 145955300
     drupal-console-route-cache:
-        is_finished: false
+        video_key: 145954843
     routing-wildcards:
         video_key: 145954347
     debugging:
