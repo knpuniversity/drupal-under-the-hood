@@ -31,7 +31,7 @@ chapters:
     routing-wildcards:
         video_key: 145954347
     debugging:
-        is_finished: false
+        video_key: 145956855
     webprofiler:
         is_finished: false
     what-is-the-service-container:
