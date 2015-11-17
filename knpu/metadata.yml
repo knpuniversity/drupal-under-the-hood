@@ -29,7 +29,7 @@ chapters:
     drupal-console-route-cache:
         is_finished: false
     routing-wildcards:
-        is_finished: false
+        video_key: 145954347
     debugging:
         is_finished: false
     webprofiler:
