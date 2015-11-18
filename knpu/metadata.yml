@@ -24,8 +24,10 @@ tuts_hero:
 chapters:
     installation-web-server:
         video_key: 145949214
+        is_free:   true
     modules-routes-controllers:
         video_key: 145955300
+        is_free:   true
     drupal-console-route-cache:
         video_key: 145954843
     routing-wildcards:
@@ -33,13 +35,14 @@ chapters:
     debugging:
         video_key: 145956855
     webprofiler:
-        is_finished: false
+        video_key: 146063043
     what-is-the-service-container:
-        is_finished: false
+        video_key: 146058707
+        is_free:   true
     create-service:
-        is_finished: false
+        video_key: 146066191
     configure-service:
-        is_finished: false
+        video_key: 146064972
     get-service-from-container:
         is_finished: false
     service-arguments:
