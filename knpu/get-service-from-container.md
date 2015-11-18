@@ -8,7 +8,9 @@ want to use this in my controller!
 First, notice that `RoarController` is *not* extending anything. That's cool: your
 controller does *not* need to extend anything: Drupal doesn't care. That being said,
 most of the time a controller will extend a class called `ControllerBase`. Add it
-and hit tab so the `use` statement is added above the class.
+and hit tab so the `use` statement is added above the class:
+
+[[[ code('741f86bcc8') ]]]
 
 This has a lot of cool shortcut methods - we'll look at some soon. But more importantly,
 it gives us a new super-power: the ability to get services out of the container. 
@@ -17,9 +19,13 @@ it gives us a new super-power: the ability to get services out of the container.
 
 I'll use the shortcut [command+n](http://knpuniversity.com/screencast/phpstorm/doctrine),
 select "Override" from the menu and override the `create` function that lives in
-the base class. You don't need to use PhpStorm to override this, it's just fast and
-fancy. It also added the `use` statement for the `ContainerInterface`. When your
-controller needs to access services from the container, this is step 1.
+the base class:
+
+[[[ code('7a339baa67') ]]]
+
+You don't need to use PhpStorm to override this, it's just fast and fancy. It also
+added the `use` statement for the `ContainerInterface`. When your controller needs
+to access services from the container, this is step 1.
 
 Before we had this, Drupal instantiated our controller automatically. But now, it
 will call *this* function and expect *us* to create a new `RoarController` and return
@@ -28,10 +34,16 @@ is the *most important* object in Drupal... and guess what? It has only *one* im
 method on it: `get()`. I bet you can guess what it does.
 
 Create a `$roarGenerator` variable, set it to `$container->get('');` and pass it the name
-of the service: `dino_roar.roar_generator`. Behind the scenes, Drupal will instantiate
-that object and give it to us. To create the `RoarController`, `return new static();`
-and pass it `$roarGenerator`. This may look weird, but stay with me. The `new static`
-part says:
+of the service: `dino_roar.roar_generator`:
+
+[[[ code('bd344bac29') ]]]
+
+Behind the scenes, Drupal will instantiate that object and give it to us. To create
+the `RoarController`, `return new static();` and pass it `$roarGenerator`:
+
+[[[ code('5b330fa21b') ]]]
+
+This may look weird, but stay with me. The `new static` part says:
 
 > Create a new instance of `RoarController` and return it, please".
 
@@ -39,13 +51,18 @@ Again, manners are good for performance in D8.
 
 ## Controller __construct() Method
 
-Next, create a constructor: `public function __construct()`. When we instantiate
-the controller, we're choosing to pass it `$roarGenerator`. So add that as an argument.
+Next, create a constructor: `public function __construct()`.When we instantiate
+the controller, we're choosing to pass it `$roarGenerator`. So add that as an argument:
+
+[[[ code('88775ebef2') ]]]
+
 I'll even type-hint it with `RoarGenerator` to be super cool. Type-hinting is
 optional, but it makes us best friends.
 
 Finally, create a `private $roarGenerator` property and set it with
-`$this->roarGenerator = $roarGenerator;`.
+`$this->roarGenerator = $roarGenerator;`:
+
+[[[ code('fc232b3d02') ]]]
 
 Ok, this was a *big* step. As soon as we added the `create()` function, it was now
 *our* job to create a `new RoarController`. And of course, we can pass it whatever it
@@ -58,7 +75,9 @@ it on a property. That saves it for use later. Then, 5, 10, 20 or 100 milisecond
 later when Drupal finally calls the `roar()` function, we know that the `roarGenerator`
 property holds a `RoarGenerator` object.
 
-Delete the `new RoarGenerator` line and instead use `$this->roarGenerator` directly.
+Delete the `new RoarGenerator` line and instead use `$this->roarGenerator` directly:
+
+[[[ code('8d9af33fbd') ]]]
 
 Woh. Moment of truth: go back to the browser, change the URL and hit enter to reload
 the page. OMG! It still works!
@@ -69,7 +88,6 @@ It is *ok* if this was confusing for you. This - by the way - is called dependen
 injection. Buzzword! Actually, it's kind of a hard application of dependency injection.
 I'll show you a simpler and more common example in a second. But once you wrap your
 head around this pattern, you will be unstoppable.
-
 
 ## Why did I put my Service in the Container?
 
@@ -99,12 +117,19 @@ but I'll show that next. It deals with constructor arguments.
 Now that we have this pattern with the `create` function and `__construct`, we're
 dangerous! We can grab *any* service from the container!
 
-Go to the terminal and run `container:debug` and grep for `log`. Interesting: there's
-a service called `logger.factory` that can be used to, um ya know, log stuff. Let's
-see if we can log the ROOOOOAR message from the controller.
+Go to the terminal and run `container:debug` and grep for `log`:
+
+```bash
+drupal container:debug | grep log
+```
+
+Interesting: there's a service called `logger.factory` that can be used to, um ya
+know, log stuff. Let's see if we can log the ROOOOOAR message from the controller.
 
 In `RoarController` add `$loggerFactory = $container->get('logger.factory');` and
-pass that as the second constructor argument when creating `RoarController`.
+pass that as the second constructor argument when creating `RoarController`:
+
+[[[ code('6808e9a060') ]]]
 
 ### Type-Hinting Core Services
 
@@ -117,13 +142,20 @@ cool in front of co-workers.
 
 Call the argument `$loggerFactory`. I'll use a PhpStorm shortcut called
 [initialize fields](http://knpuniversity.com/screencast/phpstorm/service-shortcuts#generating-constructor-properties)
-to add that property and set it. If you want to dive into PhpStorm shortcuts, you
-should: we have a [full tutorial](http://knpuniversity.com/screencast/phpstorm) on
-it.
+to add that property and set it:
+
+[[[ code('08801984df') ]]]
+
+If you want to dive into PhpStorm shortcuts, you should: we have a
+[full tutorial](http://knpuniversity.com/screencast/phpstorm) on it.
 
 Now in the `roar()` function, use that property! Add `$this->loggerFactory->get('')`: this
 returns one specific *channel* - there's one called `default`. Finish with `->debug()`
-and pass it `$roar`. Congrats: we're now using our *first* service from the container.
+and pass it `$roar`:
+
+[[[ code('b7fd72cf2b') ]]]
+
+Congrats: we're now using our *first* service from the container.
 
 Refresh to try it! To check the logs, head to a page that has the main menu, click
 "Reports", then go into "Recent Log Messages." There it is! 
