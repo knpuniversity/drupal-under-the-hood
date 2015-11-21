@@ -1,39 +1,103 @@
 # Service Arguments
 
-We extended `ControllerBase` which gave us access to this create function workflow where
-we can pass services to our own controller and then use them. So cool!
+Pretend like the ROAR string calculation takes a really long time - like 2 seconds.
+If that were true, we wouldn't want to generate it more than once: we'd want to cache
+it in the key value store.
 
-But, we also have access to a bunch of helper functions. For example, the `$keyvaluestore`.
-In Drupal 8 there is a way that you can just have a key value store and you can back that with
-a database or with redis, it allows you to put things somewhere and fetch them out. As soon as
-you extend `ControllerBase` you can get a `$keyvaluestore` by typing `$this->keyValue()` and
-that is a built in function on `ControllerBase` and you can pass it some collection string that
-you want to search for. Let's try this out. `$keyValueStore->set('roar_string', $roar);`
-So, that will put that roar string into our key value store.  So, we will go to the url, with 50 and it passes it there, that should be in the key value store. 
+We already know how to access services from our controller: just use the `create()`
+function workflow to pass more arguments to `__construct()`. And hey, sometimes,
+it's even easier because there are shortcut methods that help do the common stuff.
 
-So, let’s try it out a command, roar equals and the key value store and you will say roar equals key value store arrow get roar string, hit refresh and it works.  And if I change that now to 500, it's pulling from the key value store, so it doesn’t change the length.  So, that’s really cool.  That’s the key value sore working in action.  But, what I am going to say is, what is the key value function here really doing. 
+But how can we get access to a service - like `keyvalue` from inside of another
+service, like `RoarGenerator`? If you're thinking that we could make `RoarGenerator`
+extend `ControllerBase`.... well, you're clever. But nope, sorry! That only works
+for your controller.
 
-So, in peach be strong, if I hold command and click this, it will open controller base, or you can open by file name to find the controller base that’s in the core directory.  And look closely here, there is a function in controller base called container and that’s a short cut to go out and get the service container.  The same container that is passed to us in the create function.  So, this is the container and look what it does, it gets out a service called key value. 
+## Accessing a Service inside a Service
 
-So, this is the important thing, the key value store, is not some weird core part of Drupal, it is just a service called key value and that is how you access the nice key value store.  So, if you need to use the key value store somewhere else, you just need to get access to the key value service.  And that is exactly what I want to do inside of roar generator.  I want you to pretend like this calculation here of the length is taking a really long time, like 2 seconds.  So, we only want to calculate it once and then we want to put it in a key value store.  
+Instead: here's the rule: as soon as you need access to a service from within a service,
+we need to create a `__construct()` method and pass it as an argument. Run `container:debug`
+and grep it for `keyvalue`:
 
-So, we know now how to get access to services within our controller, we just use this create, by using this workflow where we inject the services.  In some cases, you don’t even need to do that, because there are some shortcut methods inside of controller base for some really common stuff.  Now how do we get access to the container inside of her?  Well, this idea of expanding controller base and having this create function, I will tell you right now, that is special to your controller.  
+```bash
+drupal container:debug | grep keyvalue
+```
 
-That will work nowhere else.  Inside of roar generator, which is a service, we are going to need to do something different.  We are going to do something slightly different that will look similar.  As soon as we need access to some service, were going to go to public function destruct, then we are going to pass it in as an argument.  Now, first, I’m going to Drupal consult container debug and grab that for key value, because I want to know what type of object that is. 
+This tells me that the `keyvalue` service is an instance of `KeyValueFactory`. Create
+the `public function __construct()` and type-hint its first argument with this class.
+Woh, but wait! Like before, there is a concrete class *and* a `KeyValueFactoryInterface`
+that it implements. You can use either: interfaces are technically more correct
+and much more hipster, but really, it doesn't matter. Name the argument `$keyValueFactory`
+and open the method. I'll use [another shortcut](http://knpuniversity.com/screencast/phpstorm/doctrine#generating-the-repository),
+alt enter on a mac, to initialize the field. That doesn't do anything special: it
+just creates this private property and sets it.  
 
-You can see that it is a key value factory. [Inaudible][00:04:12] because, I’m just going to type in that.  And once again, there is a key value concrete class and there is also key value factory with that implements, you can type in either of them, the interface is technically more correct, but it doesn’t really matter.  And we’ll say, key value factory is our argument and then we will open a function.  I will use another shortcut, its alt enter on mac in the initialize fields and again, that doesn’t do anything special, it just creates this private property for me and sets it.  
+Ok, step back for a second. This is *really* similar to what we did in our controller
+when we needed the `dino_roar.roar_generator` service. We're saying that *whoever*
+creates the `RoarGenerator` will be *forced* to pass in an object that implements
+`KeyValueFactory`. *Who* does that or *how* they do that, well, that's not our problem.
+But once they do, we store it on a property so we can use it.
 
-So, this is similar to what we did in our controller, in that, if we need something, we force it to be passed into the constructor.  So, if views in isolation, what we are saying here is, whoever creates the roar generator, they are going to be forced to pass in the key value factory.  Then, down here we can use it.  We don’t know who is going to instantiate us yet, but let’s not worry about that.  Let’s just start using our key value store down below.  So first I will create a cache key called roar underscore and then the length, use a different cache key for each thing.  
+And use it we shall! First, create a cache `$key` called `roar_` and then the `$length`.
+That'll give us a different cache key for each.  
 
-Then we will say, store equals this arrow key value factory arrow get.  Now we are saying dyno and if store has key, then we will just restore arrow get, get key.  This will save us from this really long sleep down here and at the bottom we will set the actual string to a variable and then say store arrow set key string and then return that.  So, as long as somebody passes the key value store, this class is going to be able to use it really easily. 
-So, if we don’t do anything else, and we refresh, so try this.  Go into roar controller and common out the key value stuff, get rid of the key value stuff and just put back our original code that’s using our roar generator.  Now refresh and this is great, look it.  Call to member function, get on nole, roar generator line 22.  What this means is that this arrow key value factory was not set, was not passed into our construct function.  
+Next, grab the key-value store itself with `$store = $this->keyValueFactory->get()`
+and then the name of our store: `dino`. If the store *has* the key, return
+`$store->get($key)` and save us from the long, slow 2 second sleep.
 
-If you think about it, who is constructing our roar generator?  Well, it’s actually Drupal’s container itself, because we registered as a service.  So, behind the scenes, when we ask for it down here, it’s being instantiated at that moment.  So, we somehow need to teach Drupal’s container that hey, when you instantiate roar generator, it has a constructor argument and I need you to go passed that constructor argument.  You do that with the arguments key. 
+At the bottom, set the string to a variable and then store it with
+`$store->set($key, $string)`. And don't forget to return `$string`. That's a perfect
+cache setup.
 
-This is an array, so I can hit enter, go out four spaces, or two spaces is a little more common in the Drupal world.  In here, I want to tell a container to inject the key value service.  So, if I put the string key value here, what it going to do it’s actually going to [inaudible] [00:08:15] roar generate and literally pass the string key value.  We want it to pass the service key value.  So, the secret way to do that is with the at symbol.  This tells the container, when you say new roar generator, go and find the key value service and pass that in as the first constructor arguments.  
+Let's give this *cacheable* RoarGenerator a try. Back in the controller, undo everything
+so we're using that service again. Ok, refresh!
 
-Of course, since we just did a configuration file we need to do a Drupal cache rebuild.  Let's go back, refresh and it takes a little bit long there, the first time because it's hitting the sleep. Now after that it's super-fast.  Make sure you use the 50, takes two seconds or so the first time or so, then hit refresh and it goes really fast.  So, this is another one of those really important concepts, which is, that when you are in a service and you need access to another service or a configuration value, you need to add a constructor argument for it.  
+## Configure Service Arguments
 
-Then go in your services.yml file, and set an argument, and the at symbol is the way to tell the container I actually want to pass in the key value service.  So, this is really cool, because at this moment in the container, in the controller, when we ask for the dyno roar generator, it looks to see if the key value service is already instantiated.  If it isn’t, it creates that first and then passes it to the dyno roar, roar generator. 
+Ah, error!
 
-So, no matter how complex it is to create this roar generator, all we need to, I our code, is just ask for the roar generator, and the service container takes care of all the complications of exactly how to instantiate that.  
+> Call to a member function get*() on null, RoarGenerator line 22
+
+Go check that out. Huh. Somehow, the `$keyValueFactory` is *not* set: it wasn't passed
+into the `__construct()` method.
+
+But wait. Who is instantating the `RoarGenerator` anyways? The container is! We
+registered it as a service, and Drupal says `new RoarGenerator()` as soon as we
+ask for it. But it doesn't pass it *any* constructor arguments.
+
+Somehow, we need to *teach* Drupal's container that "Hey, when you instantiate `RoarGenerator`,
+it has a constructor argument. I need you to pass in the `keyvalue` service.".
+To do that, add an `arguments` key.
+
+This is an array, so I can hit enter and indent four spaces, or two spaces. Two
+spaces is the Drupal standard. If I put the string `keyvalue`, it will *literally*
+pass the string `keyvalue` as the first argument. That's not what we want! We want
+the container to pass in the *service* called `keyvalue`.
+
+The secret way to do that is with the `@` symbol.
+
+Ok, we *just* made a configuration change, so rebuild the Drupal cache:
+
+```bash
+drupal cache:rebuild
+```
+
+Refresh! Ok, super slow - it's sleeeeping. Shhh... let it sleep. There it is! But
+next time, it's super quick! Try 50. Slow.......... then fast the second time!
+
+Maybe you didn't realize it, but we just had another big Eureka, buzzword-esque
+moment. Yes! And that is: when you are inside a service - like `RoarGenerator` - and
+you need access to another service or configuration value, you need to add a `__construct()`
+argument for it and update your service's `arguments` to pass that in.
+
+So if tomorrow, we need to *log* something from inside `RoarGenerator`, what are
+we going to do? PANIC... is *not* the correct answer. No, we're going to calmly add
+a *second* argument to the `__construct()` method then update `dino_roar.services.yml`
+to configure this new argument.
+
+A cool side-effect of this stuff is that even though we had to change how `RoarGenerator`
+is created, we *didn't* need to change any of our code that uses it. In the controller,
+we just ask for `dyno_roar.roar_generator`. The container looks to see if the `keyvalue`
+service is already created. If it *isn't*, it creates it first and then passes it
+to the `RoarGenerator`. No matter how complex creating `RoarGenerator` might become,
+all we need to do is ask the container for it. All the ugly complications are hidden.

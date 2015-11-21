@@ -101,6 +101,8 @@ In `RoarController`, add the new `public function roar()`:
 
 [[[ code('0439d5ea82') ]]]
 
+## A Controller Returns a Response
+
 Now, you might be asking yourself what a controller function like this should return.
 And to that I say - excellent question! Brilliant! A controller should *always* return
 a Symfony `Response` object. Ok, that's not 100% true - but let me lie for just a

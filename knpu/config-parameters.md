@@ -1,28 +1,56 @@
 # Configuration Parameters
 
-Okay, here’s a challenge; what if we need to turn off this key value store stuff, while we are developing?  Right now, it’s not really possible other than just commenting out some code here.  It’s really hard coded that we are using the key value store.  So, lets first make our roar generative itself configurable.  Which means, that we are going to allow [inaudible] [00:00:38] to be passed in called news cache.  I’ll hit option enter, go to initial S fields and that just helps me set that up as a property.  This will be either true or false and will allow whoever is instantiating us to control whether or not we should use cache internally.  
+New challenge: what if we need to turn off the key value store stuff while we're
+developing, but keep it for production? Maybe you're thinking "just comment it out
+temporarily!". That might work for you, but eventually, I'm going to forget to uncomment
+it and deploy this to production with caching off. Then, traffic will run-over the
+site and nobody will get any roars. I think we can do better.
 
-Then down here, we can very simple say, if this arrow, use cache and, and the store has it, then return it.  Then down here we will add another if statement that says, only store if we are using the cache and it’s that simple.  So, if the entire universe is this roar generator, this roar generator is perfect because it is now configurable.  So, the next step is to allow us to control this in application.  The simplest way to do this is, to now add a second constructor argument.  So, add another dash here, so this is the second constructor argument and we will just say, true and it’s that easy.  
+Solution? Make `RoarGenerator` configurable. That means, add a new argument to
+`__construct`: `$useCache`. Hit `option+enter` to create the property and set it.
+This will be a boolean that controls whether or not we should cache.
 
-So, just to make sure that’s working, we will go and rebuild the cache, we do have the cache set to true, so we should still see the pages respond very quickly.  And we go back out here, refresh 50, that’s really fast, because it’s already stored, 51 is not stored yet, so it’s a little slower and then the second time, it’s really fast.  So, we have made it a little more configurable.  But, other than us just going in and changing this true to a false while we are developing, there’s still no good way to control whether or not we was the key value store to be used in development.  
+Down below, update the `if` statement: `if $this->useCache` *and* the store has it,
+then return it. Below, add another if statement that says we should *only* store
+this in the cache if `$this->useCache` is true.
 
-So, in addition to the services key and you will have many keys under services for all of the different services that you will have in this file.  In addition to the services key, there is one other key you have in here, called parameters.  The parameter system is a configuration system.  So, the service container really holds two things.  It holds useful objects, but it also hold a nice little key value configuration system called parameters.  So, we can try a new one here called dyno.roar.usekeyvaluecache and we will set this to true for now. 
+The `RoarGenerator` is now perfect: however creates it can control this behavior.
+Because we added a second constructor argument, we need to update the service configuration.
+Add another line with a `-` and set the second argument to `true`... for now.
 
+Time to test: rebuild the cache:
 
+```bash
+drupal cache:rebuild
+```
 
-To use this, there is a second magic syntax in these configuration files, which is percent, the name of that parameter, then percent at the end.  If you surround something with percent at the end, it assumes you’re looking for a parameter.  The really cool thing is, that parameters can be accessed in any file.  So, if we define this parameter in a different module, we can actually access it or even change it, from within this service file.  So, you don’t just have to define a parameter and use it on the same file and that’s going to be really important when we talked about configuring the core.  So, lets rebuild the cache real quick as a sanity check, hit refresh and it’s still happy. 
+Refresh! The cache is activated... and everything is still really, really fast. If
+you try `51`, that's not cached yet, but it's fast on the second load.
 
-The key is, now that we have this defined as a parameter; we can override it, only on our local machine.  So, earlier when we created this settings.local.phb file, which is loaded from settings.phb, it loads a development.serivce.yml file, which is allows us to control things that happen in our local development environment.  We didn’t create this file, we just inherited it.  In here is our opportunity to override core settings in the development environment.  And you notice, it already has a service inside of here, which is override a core service.  In addition to that, we can add parameters key.  
+But this didn't solve our problem, it just moved the code we need to change from
+`RoarGenerator` into the service file.
 
-We can copy this parameter name and set it to false, and this will override that value, and with any luck, this should actually turn off cache.  Let’s go back and rebuild the cache and refresh and notice that it's slow.  Refresh again, it’s still slow, that just turned off caching in the system.  Parameters are the number one way that you control behavior of core and third party modules.  In fact, if you look in the core directory up here, which is Drupal’s core files, you‘ll see a core.services.yml file and you will notice that it has a parameters key with all kinds of parameters stored under it. 
+In addition to the `services` key - that can hold many services - these files are
+allowed to have one other root key: `parameters`. The parameter system is a key-value
+configuration system. This means... I lied to you! The service container isn't *just*
+an array-like object that holds services. It also holds a key-value configuration
+system called parameters.
 
-These are values that you can override and control from within your applications, to change behavior.  Below that is a services key with all of the useful services in the system, all of the core services.  The majority of what we see when we run Drupal container debug, is coming from this file.  This is really cool, because the core services are configured in the exact same way that our core services are configured, it’s not different.  Services are equal and this is where the majority of the core services come from.  In the sites default directory, you will notice that you have a default.service.yml file.  
+Add a new parameter called `dyno.roar.use_key_value_cache` and set it to `true`.
+To use this, I gotta tell you about the one *other* magic syntax in these files.
+That is, use `%` - the name of the parameter - then `%`.  When you surround something
+with percent signs, the container finds a parameter by this name and passes that.
 
-If reading is to service.yml, it will automatically get loaded.  Things to align up code inside the setting.php.  So, it’s not being loaded now, but if you renamed it, it would.  If you look inside, it has a bunch of parameters set, with descriptions above them.  We now know, that these are actually going to be override the core parameters, which allow you to control a number of different things in the system.  So, I won’t rename this, but you look at one here is a twig config variable, and below that, there is a debug false, debug true, so, I actually want to have twig debugging on inside the development environment.  
+And there's a bonus: these parameters can be accessed in any of these service files.
+That means that if we define parameter A in one module, you can use it - or even
+change it - somewhere else. This ends up being *critical* to how you can control
+the *core* of Drupal. And yes, we'll talk about that soon!
 
-So, I’m going to go to my development.services.yml and I am going to say twig and fig and then I am going to say debug true.  So, this is overriding the debug false value that’s in the core.  No, I can probably stop after this, yeah, it’s going really well.  It’s going really well.  Good night, get out of here, I have to transcribe this. 
+But first, rebuild the cache real quick for a sanity check:
 
-Change the url to the home page because obviously we don’t have a lot of twig on our silly page, refresh and it looks the same, but if you hit u source, scroll down, you are going to see that there’s all kind of cool little hdml comments in there that will tell you exactly what templets all of the little bits are coming from and how you can create overrides for each of these.  So, this is one of the really cool things that happen when you change twig debug to true.  But, the really important thing is to realize that these parameters are being set in core and third party modules and if you override them, then you actually change the behavior the core services themselves.  
+```bash
+drupal cache:rebuild
+```
 
-
-
+Refresh! Everyone is still happy! We're awesome now with parameters... but we *still*
+haven't *quite* solved our problem.

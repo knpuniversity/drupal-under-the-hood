@@ -45,9 +45,19 @@ chapters:
         video_key: 146064972
     get-service-from-container:
         video_key: 146143976
+    shortcuts-use-services:
+        is_finished: false
     service-arguments:
         is_finished: false
     config-parameters:
         is_finished: false
-    event-subscriber-render-array:
+    override-core-drupal:
+        is_finished: false
+    events-versus-hooks:
+        is_finished: false
+    event-subscriber-tags:
+        is_finished: false
+    event-arguments-request:
+        is_finished: false
+    render-array-events:
         is_finished: false
