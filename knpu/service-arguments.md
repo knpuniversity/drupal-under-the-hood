@@ -61,7 +61,7 @@ Ah, error!
 Go check that out. Huh. Somehow, the `$keyValueFactory` is *not* set: it wasn't passed
 into the `__construct()` method.
 
-But wait. Who is instantating the `RoarGenerator` anyways? The container is! We
+But wait. Who is instantiating the `RoarGenerator` anyways? The container is! We
 registered it as a service, and Drupal says `new RoarGenerator()` as soon as we
 ask for it. But it doesn't pass it *any* constructor arguments.
 

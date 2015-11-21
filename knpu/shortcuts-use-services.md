@@ -34,5 +34,5 @@ called `keyvalue`.
 Here's the really key thing: the "key value store" functionality isn't some weird,
 core part of Drupal: it's just a service called `keystore` like any other service.
 This means that if you need to use the key value store somewhere outside of the
-controlller, you just need to get access to the `keyvalue` service. And that is
+controller, you just need to get access to the `keyvalue` service. And that is
 *exactly* what I want to do inside of roar generator.

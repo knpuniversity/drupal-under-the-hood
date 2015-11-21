@@ -37,4 +37,4 @@ it this tag with the new format. You may never need to do this, but as you dig, 
 layers start to open up.
 
 That's if for now.  If there's something that's confusing you or mysterious in D8,
-let me know and we'll dive in together. Ok, seeya guys next time!
+let me know and we'll dive in together. Ok, see ya guys next time!

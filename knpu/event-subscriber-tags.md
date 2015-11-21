@@ -1,4 +1,4 @@
-# Event Susbcribers and Dependency Injection Tags
+# Event Subscribers and Dependency Injection Tags
 
 Here's the challenge: add a function that will be called on *every* request, right
 at the beginning, before any controller is called. This means we should hook into
@@ -63,7 +63,7 @@ it as a service, and tag it with `twig.extension`. This tells Twig, "Yo, I have
 a Twig Extension here - use it!".
 
 If you're using tags, then you're probably doing something geeky-cook, hooking into
-some core part of the sytem. And you don't need to know about all the tags. You'll
+some core part of the system. And you don't need to know about all the tags. You'll
 Google "how do I register an event subscriber" and see that it uses a tag called
 `event_subscriber`. You just need to understand how they work: that it's your way
 of making your service special.
