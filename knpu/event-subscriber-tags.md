@@ -16,7 +16,7 @@ highlight this. That's a nice shortcut to add the *one* method we need... and th
 
 We need to tell Drupal *which* event we want to listen to and *what* method to call
 when that event happens. This method returns an array that says exactly that. Use
-`KernelVEnts::REQUEST` as the key and hit `tab` to auto-complete and get the `use`
+`KernelEvents::REQUEST` as the key and hit `tab` to auto-complete and get the `use`
 statement. But hold on, that is *just* a constant that means `kernel.request`. You
 can totally use the string `kernel.request` if you want to. The value is the method
 to call. Use, `onKernelRequest()`.
@@ -27,7 +27,7 @@ will hold any information your function will need. The tricky thing is that this
 is a different object depending on *which* event you're listening to.
 
 No worries, let's just `var_dump()` it and see what it is! Ok, this class is setup.
-The last step is to tell Drupal we have an event listener. How do you do that? Register
+The last step is to tell Drupal we have an event subscriber. How do you do that? Register
 this class as a service. Get used to that answer.
 
 In `dino_roar.services.yml`, add a new service - the name doesn't matter. Set the
@@ -43,7 +43,7 @@ know it's an event subscriber. Somehow, we need to tell Drupal:
 
 Whenever you want to raise your hand and scream "Drupal, this service is special,
 use it for this core purpose", you're going to use a tag. The syntax for a tag
-is ugly, but there it goes. Add `tags`, add a new line, indent, add a dash, then
+is ugly, but here it goes. Add `tags`, add a new line, indent, add a dash, then
 a set of curly braces. Every tag has a name: this one is `event_subscriber`.
 
 By doing this, you've now told Drupal's core that our `DynoListener` service is an
@@ -62,7 +62,7 @@ custom functions to Twig, you'll create a class that extends `Twig_Extension`, r
 it as a service, and tag it with `twig.extension`. This tells Twig, "Yo, I have
 a Twig Extension here - use it!".
 
-If you're using tags, then you're probably doing something geeky-cook, hooking into
+If you're using tags, then you're probably doing something geeky-cool, hooking into
 some core part of the system. And you don't need to know about all the tags. You'll
 Google "how do I register an event subscriber" and see that it uses a tag called
 `event_subscriber`. You just need to understand how they work: that it's your way

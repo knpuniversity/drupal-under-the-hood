@@ -5,10 +5,10 @@ When we extended `ControllerBase`, we got access to the `create()` function. And
 
 But wait, there's more! `ControllerBase` gives us a *bunch* of helper functions.
 
-But, we also have access to a bunch of helper functions. For example, Drupal gives
-you access to a key value store that can be backed with a database or something like
-Redis. As soon as you extend `ControllerBase` you can get a a key-value store by
-typing `$this->keyValue()` and passing it some collection string.
+For example, Drupal gives you access to a key value store that can be backed with
+a database or something like Redis. As soon as you extend `ControllerBase` you can
+get a key-value store by typing `$this->keyValue()` and passing it some collection
+string.
 
 Hey, let's take it for a test drive: `$keyValueStore->set('roar_string', $roar);`
 Ok cool - let's store something: go to the url, with 50 as the value. Ding! Ok, nothing
@@ -25,14 +25,14 @@ that cool?
 But, question: what does this `keyValue()` function *really* do?
 
 In PHPStorm, hold command - or control in Windows - and click this method! Bam! It
-opens up `ControllerBase` - *deep* in the heart od Drupal - and shows us the real
+opens up `ControllerBase` - *deep* in the heart of Drupal - and shows us the real
 `keyValue()` method. And hey, look at this: there is a function in controller base
 called `container()` - it's a shortcut to get the service container, the same container
-that is passed to us in the `create()` function.  It uses it to fetch our a service
+that is passed to us in the `create()` function.  It uses it to fetch out a service
 called `keyvalue`.
 
-Here's the really key thing: the "key value store" functionality isn't some weird,
+Here's the really important thing: the "key value store" functionality isn't some weird,
 core part of Drupal: it's just a service called `keystore` like any other service.
 This means that if you need to use the key value store somewhere outside of the
 controller, you just need to get access to the `keyvalue` service. And that is
-*exactly* what I want to do inside of roar generator.
+*exactly* what I want to do inside of `RoarGenerator`.

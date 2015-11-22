@@ -62,5 +62,5 @@ drupal cache:rebuild
 Refresh. No error! Head into "Reports" and then "Recent Log Messages". There's the
 "Roar Requested".
 
-You're now an event listener pro. We listened to `kernel.reqeust`, but you can dd
-a listener to *any* event that Drupal *or* third-party modules expose.
+You're now an event listener pro. We listened to the `kernel.reqeust` event, but
+you can add a listener to *any* event that Drupal *or* a third-party module exposes.

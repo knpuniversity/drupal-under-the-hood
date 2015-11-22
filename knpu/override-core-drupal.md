@@ -32,7 +32,7 @@ like we define *our* services. That's really cool. Most of the services we see i
 ## Site-Specific Services
 
 At the top, it *also* has a `parameters` key with all kinds of parameters stored
-under it. These are values that *you* can override to control of core behavior for
+under it. These are values that *you* can override to control core behavior for
 your app. How? In `sites/default`, you already have a `default.services.yml`. If
 you rename this to `services.yml`, Drupal will load it. That's thanks to a line
 in `settings.php`... that's hiding from me... there it is! The config `container_yamls`.

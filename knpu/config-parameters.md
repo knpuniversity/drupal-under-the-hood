@@ -14,7 +14,7 @@ Down below, update the `if` statement: `if $this->useCache` *and* the store has 
 then return it. Below, add another if statement that says we should *only* store
 this in the cache if `$this->useCache` is true.
 
-The `RoarGenerator` is now perfect: however creates it can control this behavior.
+The `RoarGenerator` is now perfect: whoever creates it can control this behavior.
 Because we added a second constructor argument, we need to update the service configuration.
 Add another line with a `-` and set the second argument to `true`... for now.
 

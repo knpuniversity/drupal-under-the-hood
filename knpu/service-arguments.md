@@ -35,8 +35,8 @@ just creates this private property and sets it.
 Ok, step back for a second. This is *really* similar to what we did in our controller
 when we needed the `dino_roar.roar_generator` service. We're saying that *whoever*
 creates the `RoarGenerator` will be *forced* to pass in an object that implements
-`KeyValueFactory`. *Who* does that or *how* they do that, well, that's not our problem.
-But once they do, we store it on a property so we can use it.
+`KeyValueFactoryInterface`. *Who* does that or *how* they do that, well, that's not
+our problem. But once they do, we store it on a property so we can use it.
 
 And use it we shall! First, create a cache `$key` called `roar_` and then the `$length`.
 That'll give us a different cache key for each.  
