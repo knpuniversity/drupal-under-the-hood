@@ -32,7 +32,7 @@ that is passed to us in the `create()` function.  It uses it to fetch out a serv
 called `keyvalue`.
 
 Here's the really important thing: the "key value store" functionality isn't some weird,
-core part of Drupal: it's just a service called `keystore` like any other service.
+core part of Drupal: it's just a service called `keyvalue` like any other service.
 This means that if you need to use the key value store somewhere outside of the
 controller, you just need to get access to the `keyvalue` service. And that is
 *exactly* what I want to do inside of `RoarGenerator`.
