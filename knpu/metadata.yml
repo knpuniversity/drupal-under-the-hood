@@ -62,6 +62,7 @@ chapters:
         video_key: 146919220
     event-subscriber-tags:
         is_finished: false
+        video_key: 146924329
     event-arguments-request:
         is_finished: false
     render-array-events:
