@@ -1,7 +1,7 @@
 # Event Arguments and the Request
 
 We *now* know that when you listen to *this* event, it passes you an event object
-called `GetResponseForEvent`. Type-hint the argument to enjoy auto-completion.
+called `GetResponseEvent`. Type-hint the argument to enjoy auto-completion.
 
 ## Using the Event Argument
 

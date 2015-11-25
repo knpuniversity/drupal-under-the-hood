@@ -11,8 +11,7 @@ class. Next, make this class implement `EventSubscriberInterface`. If you're not
 
 This interface forces us to have 1 method: `getSubcribedEvents()`. In PhpStorm,
 hit `command+n` to bring up the Generate menu, select "Implement Methods", and
-highlight this. That's a nice shortcut to add the *one* method we need... and the
-`use` statement.
+highlight this. That's a nice shortcut to add the *one* method we need.
 
 We need to tell Drupal *which* event we want to listen to and *what* method to call
 when that event happens. This method returns an array that says exactly that. Use
