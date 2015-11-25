@@ -47,6 +47,7 @@ chapters:
         video_key: 146143976
     shortcuts-use-services:
         is_finished: false
+        video_key: 146909604
     service-arguments:
         is_finished: false
     config-parameters:
