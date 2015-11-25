@@ -58,6 +58,7 @@ chapters:
         is_finished: false
     events-versus-hooks:
         is_finished: false
+        video_key: 146919220
     event-subscriber-tags:
         is_finished: false
     event-arguments-request:
