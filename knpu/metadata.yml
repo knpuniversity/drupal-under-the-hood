@@ -52,6 +52,7 @@ chapters:
         is_finished: false
     config-parameters:
         is_finished: false
+        video_key: 146915086
     override-core-drupal:
         is_finished: false
     events-versus-hooks:
