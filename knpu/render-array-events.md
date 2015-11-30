@@ -3,7 +3,9 @@
 While we're on the topic, the render array works via a listener. When I told you
 earlier that
 [a controller *always* returns a Response object](https://knpuniversity.com/screencast/drupal8-under-the-hood/modules-routes-controllers#a-controller-returns-a-response),
-that was a bloody lie! Return an array instead, and set `#title` to `$roar`.
+that was a bloody lie! Return an array instead, and set `#title` to `$roar`:
+
+[[[ code('5c9fd3ef66') ]]]
 
 Head to `/the/dino/says/50` in the browser. As expected, here is a fully-themed page.
 And I say "as expected", but is it expected? One of the cardinal rules of a Symfony
@@ -22,7 +24,9 @@ the magic of Drupal gets more transparency via events.
 So if you want to see how the render array system works, you just need to open that
 class. In fact, I'll give you a little preview. Find `core.services.yml` again. Inside,
 there's a section that includes some services, `main_content_renderer_html` and
-`main_content_renderer_ajax`.  
+`main_content_renderer_ajax`:
+
+[[[ code('') ]]]
 
 If you looked into `MainContentViewSubscriber` far enough, you'd see it uses these
 classes behind the scenes to figure out *how* to render the page. What's really
