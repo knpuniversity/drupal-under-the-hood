@@ -26,7 +26,7 @@ class. In fact, I'll give you a little preview. Find `core.services.yml` again. 
 there's a section that includes some services, `main_content_renderer_html` and
 `main_content_renderer_ajax`:
 
-[[[ code('') ]]]
+[[[ code('3a368ea298') ]]]
 
 If you looked into `MainContentViewSubscriber` far enough, you'd see it uses these
 classes behind the scenes to figure out *how* to render the page. What's really
