@@ -1,6 +1,9 @@
 # Service Arguments
 
-Pretend like the ROAR string calculation takes a really long time - like 2 seconds.
+Pretend like the ROAR string calculation takes a really long time - like 2 seconds:
+
+[[[ code('81681f61bb') ]]]
+
 If that were true, we wouldn't want to generate it more than once: we'd want to cache
 it in the key value store.
 
@@ -29,8 +32,11 @@ Woh, but wait! Like before, there is a concrete class *and* a `KeyValueFactoryIn
 that it implements. You can use either: interfaces are technically more correct
 and much more hipster, but really, it doesn't matter. Name the argument `$keyValueFactory`
 and open the method. I'll use [another shortcut](http://knpuniversity.com/screencast/phpstorm/doctrine#generating-the-repository),
-alt enter on a mac, to initialize the field. That doesn't do anything special: it
-just creates this private property and sets it.  
+alt enter on a mac, to initialize the field:
+
+[[[ code('2a377489ff') ]]]
+
+That doesn't do anything special: it just creates this private property and sets it.  
 
 Ok, step back for a second. This is *really* similar to what we did in our controller
 when we needed the `dino_roar.roar_generator` service. We're saying that *whoever*
@@ -38,19 +44,31 @@ creates the `RoarGenerator` will be *forced* to pass in an object that implement
 `KeyValueFactoryInterface`. *Who* does that or *how* they do that, well, that's not
 our problem. But once they do, we store it on a property so we can use it.
 
-And use it we shall! First, create a cache `$key` called `roar_` and then the `$length`.
+And use it we shall! First, create a cache `$key` called `roar_` and then the `$length`:
+
+[[[ code('9e7a35d193') ]]]
+
 That'll give us a different cache key for each.  
 
 Next, grab the key-value store itself with `$store = $this->keyValueFactory->get()`
 and then the name of our store: `dino`. If the store *has* the key, return
-`$store->get($key)` and save us from the long, slow 2 second sleep.
+`$store->get($key)` and save us from the long, slow 2 second sleep:
+
+[[[ code('1acb282ad4') ]]]
 
 At the bottom, set the string to a variable and then store it with
-`$store->set($key, $string)`. And don't forget to return `$string`. That's a perfect
-cache setup.
+`$store->set($key, $string)`. And don't forget to return `$string`:
+
+[[[ code('2c1de412dc') ]]]
+
+That's a perfect cache setup.
 
 Let's give this *cacheable* RoarGenerator a try. Back in the controller, undo everything
-so we're using that service again. Ok, refresh!
+so we're using that service again:
+
+[[[ code('fbf25ccf0b') ]]]
+
+Ok, refresh!
 
 ## Configure Service Arguments
 
@@ -67,14 +85,18 @@ ask for it. But it doesn't pass it *any* constructor arguments.
 
 Somehow, we need to *teach* Drupal's container that "Hey, when you instantiate `RoarGenerator`,
 it has a constructor argument. I need you to pass in the `keyvalue` service.".
-To do that, add an `arguments` key.
+To do that, add an `arguments` key:
+
+[[[ code('30902152e5') ]]]
 
 This is an array, so I can hit enter and indent four spaces, or two spaces. Two
 spaces is the Drupal standard. If I put the string `keyvalue`, it will *literally*
 pass the string `keyvalue` as the first argument. That's not what we want! We want
 the container to pass in the *service* called `keyvalue`.
 
-The secret way to do that is with the `@` symbol.
+The secret way to do that is with the `@` symbol:
+
+[[[ code('5abc1dd9df') ]]]
 
 Ok, we *just* made a configuration change, so rebuild the Drupal cache:
 
@@ -97,7 +119,11 @@ to configure this new argument.
 
 A cool side-effect of this stuff is that even though we had to change how `RoarGenerator`
 is created, we *didn't* need to change any of our code that uses it. In the controller,
-we just ask for `dyno_roar.roar_generator`. The container looks to see if the `keyvalue`
-service is already created. If it *isn't*, it creates it first and then passes it
-to the `RoarGenerator`. No matter how complex creating `RoarGenerator` might become,
-all we need to do is ask the container for it. All the ugly complications are hidden.
+we just ask for `dyno_roar.roar_generator`:
+
+[[[ code('8338b05a89') ]]]
+
+The container looks to see if the `keyvalue` service is already created. If it *isn't*,
+it creates it first and then passes it to the `RoarGenerator`. No matter how complex
+creating `RoarGenerator` might become, all we need to do is ask the container for
+it. All the ugly complications are hidden.

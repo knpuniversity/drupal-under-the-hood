@@ -8,15 +8,23 @@ But wait, there's more! `ControllerBase` gives us a *bunch* of helper functions.
 For example, Drupal gives you access to a key value store that can be backed with
 a database or something like Redis. As soon as you extend `ControllerBase` you can
 get a key-value store by typing `$this->keyValue()` and passing it some collection
-string.
+string:
 
-Hey, let's take it for a test drive: `$keyValueStore->set('roar_string', $roar);`
+[[[ code('dff9b209fa') ]]]
+
+Hey, let's take it for a test drive: `$keyValueStore->set('roar_string', $roar);`:
+
+[[[ code('c1040d802a') ]]]
+
 Ok cool - let's store something: go to the url, with 50 as the value. Ding! Ok, nothing
 visually happened, but the `roar_string` *should* be stored.
 
 Let's see for sure: comment out the `$roar` equals and key-value store lines. Instead,
-say `$roar = $keyValueStore->get()` and pass it `roar_string`. Refresh! The key-value
-store WORKS!
+say `$roar = $keyValueStore->get()` and pass it `roar_string`:
+
+[[[ code('3621b0e5ad') ]]]
+
+Refresh! The key-value store WORKS!
 
 And if I change the URL to 500, the length doesn't change: it's *still* pulling from
 the store. This has nothing to do with understanding how Drupal works, but isn't
@@ -26,10 +34,13 @@ But, question: what does this `keyValue()` function *really* do?
 
 In PHPStorm, hold command - or control in Windows - and click this method! Bam! It
 opens up `ControllerBase` - *deep* in the heart of Drupal - and shows us the real
-`keyValue()` method. And hey, look at this: there is a function in controller base
-called `container()` - it's a shortcut to get the service container, the same container
-that is passed to us in the `create()` function.  It uses it to fetch out a service
-called `keyvalue`.
+`keyValue()` method:
+
+[[[ code('c9023769cd') ]]]
+
+And hey, look at this: there is a function in `ControllerBase` called `container()` -
+it's a shortcut to get the service container, the same container that is passed to
+us in the `create()` function.  It uses it to fetch out a service called `keyvalue`.
 
 Here's the really important thing: the "key value store" functionality isn't some weird,
 core part of Drupal: it's just a service called `keyvalue` like any other service.

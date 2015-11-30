@@ -6,13 +6,20 @@ Now that the value we want to change is stored as a parameter, we can override i
 ## development.services.yml to Change Local Behavior
 
 Earlier, we created a `settings.local.php` file, which is itself loaded from `settings.php`.
-This file loads a `development.services.yml` file. And that's the key: this file
-gives us tremendous power: power to override services and parameters. These changes
-will *only* affect our local environment... well, really, *any* environment where
-you've chosen to create the `settings.local.php` file.
+This file loads a `development.services.yml` file:
+
+[[[ code('6839caab60') ]]]
+
+And that's the key: this file gives us tremendous power: power to override services
+and parameters. These changes will *only* affect our local environment... well,
+really, *any* environment where you've chosen to create the `settings.local.php` file.
 
 Hey, you know what we should do? Override the parameter! Copy the name and set it
-to `false` With any luck, this will turn off the cache. Rebuild it:
+to `false` With any luck, this will turn off the cache:
+
+[[[ code('b9fa4aed5b') ]]]
+
+Rebuild it:
 
 ```bash
 drupal cache:rebuild
@@ -25,6 +32,8 @@ Parameters are the *number one* way that you control the behavior of core and th
 party modules. In fact, check out the `core` directory - that's where Drupal lives!
 And hey, look at that `core.services.yml` file!
 
+[[[ code('a190c13dc8') ]]]
+
 All the really important, base services are defined here: they're defined *just*
 like we define *our* services. That's really cool. Most of the services we see in
 `container:debug` are coming from here.
@@ -32,14 +41,26 @@ like we define *our* services. That's really cool. Most of the services we see i
 ## Site-Specific Services
 
 At the top, it *also* has a `parameters` key with all kinds of parameters stored
-under it. These are values that *you* can override to control core behavior for
-your app. How? In `sites/default`, you already have a `default.services.yml`. If
-you rename this to `services.yml`, Drupal will load it. That's thanks to a line
-in `settings.php`... that's hiding from me... there it is! The config `container_yamls`.
+under it:
 
-Open up `default.services.yml`. Hey, `parameters`! In fact, these are the same parameters
-we saw in `core.services.yml`. So everything is setup to allow you to easily control
-many different parts of the system.
+[[[ code('01d46d9f60') ]]]
+
+These are values that *you* can override to control core behavior for your app. How?
+In `sites/default`, you already have a `default.services.yml`. If you rename this
+to `services.yml`, Drupal will load it. That's thanks to a line in `settings.php`... that's hiding from me... there it is!
+
+[[[ code('5fd01b3da4') ]]]
+
+The config `container_yamls`.
+
+## Overriding Core Parameters
+
+Open up `default.services.yml`. Hey, `parameters`!
+
+[[[ code('baea840928') ]]]
+
+In fact, these are the same parameters we saw in `core.services.yml`. So everything
+is setup to allow you to easily control many different parts of the system.
 
 One of the settings under `twig.config` is called `debug`, and it's set to false.
 I want to set this to true, to make theming easier. I could rename this file to
@@ -47,8 +68,12 @@ I want to set this to true, to make theming easier. I could rename this file to
 be true. No, this is a change that I only want to make *locally*. That's the job
 of `development.services.yml`.
 
-Add `twig.config` there with `debug` set to `true`. Cool, that should replace the
-original value from `core.services.yml`. Let's clear some cache:
+Add `twig.config` there with `debug` set to `true`:
+
+[[[ code('4dcb6bc807') ]]]
+
+Cool, that should replace the original value from `core.services.yml`. Let's clear
+some cache:
 
 ```bash
 drupal cache:rebuild
