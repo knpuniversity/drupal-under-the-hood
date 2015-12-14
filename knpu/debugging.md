@@ -8,17 +8,31 @@ First, let's activate a debug mode so we can see errors... *just* in case some *
 developer makes a mistake and we have to debug it.
 
 In `sites/` there's an `example.settings.local.php` file that can be used to activate
-development settings locally. In the terminal, copy this to `sites/default/settings.local.php`.
-I'm using sudo because I don't have write permissions to some of these files. I don't
-like that, so use `sudo chmod 755` on that file. Do the same to `settings.php` and
-the whole `sites/default` directory:
+development settings locally. But first, we need to play with permissions: Drupal
+makes some files in this directory readonly for security. Start by making `sites/default`
+writable by us:
 
 ```bash
-sudo cp sites/example.settings.local.php sites/default/settings.local.php
-sudo chmod 755 sites/default/settings.local.php
-sudo chmod 755 sites/default/settings.php
-sudo chmod 755 sites/default
+chmod 755 sites/default
 ```
+
+Now, copy `sites/example.settings.local.php` to `sites/default/settings.local.php`:
+
+
+```bash
+cp sites/example.settings.local.php sites/default/settings.local.php
+```
+
+Finally, make sure we can write to `settings.php`:
+
+```bash
+chmod 644 sites/default/settings.php
+```
+
+***TIP
+On a production server, it's beast to make sure these files are *not* writeable by
+whatever user runs your web server.
+***
 
 The `settings.local.php` file activates several things that are good for debugging, like
 a `verbose` error level. It also loads a `development.services.yml` file that we're
