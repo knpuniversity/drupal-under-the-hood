@@ -15,7 +15,7 @@ illustration: drupal-tutorial.png
 
 tuts_hero:
     start_step: 'start'
-#    finish_step: ''
+    finish_step: 'renderarray-return-title'
 
 chapters:
     installation-web-server:
