@@ -13,8 +13,9 @@ it into a global `bin` directory so that you can simply type `drupal` from anywh
 in the terminal:
 
 ```bash
-curl -LSs http://drupalconsole.com/installer | php
+curl https://drupalconsole.com/installer -L -o drupal.phar
 mv console.phar /usr/local/bin/drupal
+chmod +x /usr/local/bin/drupal
 drupal
 ```
 
