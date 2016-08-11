@@ -1,8 +1,8 @@
 diff --git a/modules/dino_roar/src/Controller/RoarController.php b/modules/dino_roar/src/Controller/RoarController.php
-index e12f0f9..624bffb 100644
+index 2a76caa..08bad2a 100644
 --- a/modules/dino_roar/src/Controller/RoarController.php
 +++ b/modules/dino_roar/src/Controller/RoarController.php
-@@ -37,10 +37,11 @@ public function roar($count)
+@@ -42,10 +42,11 @@ public function roar($count)
      {
          $keyValueStore = $this->keyValue('dino');
  
@@ -10,7 +10,7 @@ index e12f0f9..624bffb 100644
 +        //$roar = $this->roarGenerator->getRoar($count);
 +        //$keyValueStore->set('roar_string', $roar);
 +        $roar = $keyValueStore->get('roar_string');
-         $this->loggerFactory->get('default')
+         $this->loggerFactoryService->get('default')
              ->debug($roar);
 -        $keyValueStore->set('roar_string', $roar);
  

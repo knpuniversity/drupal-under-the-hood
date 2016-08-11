@@ -1,5 +1,5 @@
 diff --git a/modules/dino_roar/src/Controller/RoarController.php b/modules/dino_roar/src/Controller/RoarController.php
-index 2ad60c2..abda954 100644
+index 2ad60c2..d63b069 100644
 --- a/modules/dino_roar/src/Controller/RoarController.php
 +++ b/modules/dino_roar/src/Controller/RoarController.php
 @@ -3,6 +3,7 @@
@@ -10,20 +10,24 @@ index 2ad60c2..abda954 100644
  use Drupal\dino_roar\Jurassic\RoarGenerator;
  use Symfony\Component\DependencyInjection\ContainerInterface;
  use Symfony\Component\HttpFoundation\Response;
-@@ -13,22 +14,30 @@ class RoarController extends ControllerBase
-      * @var RoarGenerator
+@@ -14,21 +15,34 @@ class RoarController extends ControllerBase
       */
      private $roarGenerator;
-+    /**
-+     * @var LoggerChannelFactoryInterface
-+     */
-+    private $loggerFactory;
  
 -    public function __construct(RoarGenerator $roarGenerator)
++    /**
++     * @var LoggerChannelFactoryInterface
++     *
++     * Renamed from loggerFactory to loggerFactoryService to not
++     * conflict with a new loggerFactory service on ControllerBase
++     * in Drupal 8.1!
++     */
++    private $loggerFactoryService;
++
 +    public function __construct(RoarGenerator $roarGenerator, LoggerChannelFactoryInterface $loggerFactory)
      {
          $this->roarGenerator = $roarGenerator;
-+        $this->loggerFactory = $loggerFactory;
++        $this->loggerFactoryService = $loggerFactory;
      }
  
      public static function create(ContainerInterface $container)
@@ -38,7 +42,7 @@ index 2ad60c2..abda954 100644
      public function roar($count)
      {
          $roar = $this->roarGenerator->getRoar($count);
-+        $this->loggerFactory->get('default')
++        $this->loggerFactoryService->get('default')
 +            ->debug($roar);
  
          return new Response($roar);
