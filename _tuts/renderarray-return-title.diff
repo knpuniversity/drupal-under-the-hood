@@ -12,3 +12,16 @@ index d63b069..5d80bd9 100644
 +        ];
      }
  }
+diff --git a/modules/dino_roar/src/Jurassic/DinoListener.php b/modules/dino_roar/src/Jurassic/DinoListener.php
+index b816cd9..a9ed16b 100644
+--- a/modules/dino_roar/src/Jurassic/DinoListener.php
++++ b/modules/dino_roar/src/Jurassic/DinoListener.php
+@@ -23,7 +23,7 @@ public function onKernelRequest(GetResponseEvent $event)
+ 
+         if ($shouldRoar) {
+             $this->loggerFactory->get('default')
+-                ->debug('ROOOOOOOOAR');
++                ->debug('Roar requested ROOOOOOOOAR');
+         }
+     }
+ 
