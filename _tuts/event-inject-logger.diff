@@ -11,7 +11,7 @@ index 315b461..6db56cc 100644
          tags:
              - { name: event_subscriber }
 diff --git a/modules/dino_roar/src/Jurassic/DinoListener.php b/modules/dino_roar/src/Jurassic/DinoListener.php
-index 8b6b67a..21638b6 100644
+index 8b6b67a..b816cd9 100644
 --- a/modules/dino_roar/src/Jurassic/DinoListener.php
 +++ b/modules/dino_roar/src/Jurassic/DinoListener.php
 @@ -2,19 +2,28 @@
@@ -25,11 +25,11 @@ index 8b6b67a..21638b6 100644
  
  class DinoListener implements EventSubscriberInterface
  {
-+    private $loggerChannel;
++    private $loggerFactory;
 +
-+    public function __construct(LoggerChannelFactoryInterface $loggerChannel)
++    public function __construct(LoggerChannelFactoryInterface $loggerFactory)
 +    {
-+        $this->loggerChannel = $loggerChannel;
++        $this->loggerFactory = $loggerFactory;
 +    }
 +
      public function onKernelRequest(GetResponseEvent $event)
@@ -39,7 +39,7 @@ index 8b6b67a..21638b6 100644
  
          if ($shouldRoar) {
 -            var_dump('ROOOOOOOOAR');die;
-+            $channel = $this->loggerChannel->get('default')
++            $this->loggerFactory->get('default')
 +                ->debug('ROOOOOOOOAR');
          }
      }
