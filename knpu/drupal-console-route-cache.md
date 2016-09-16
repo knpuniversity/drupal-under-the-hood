@@ -14,7 +14,7 @@ in the terminal:
 
 ```bash
 curl https://drupalconsole.com/installer -L -o drupal.phar
-mv console.phar /usr/local/bin/drupal
+mv drupal.phar /usr/local/bin/drupal
 chmod +x /usr/local/bin/drupal
 drupal
 ```
