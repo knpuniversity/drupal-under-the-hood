@@ -11,7 +11,7 @@ this controller, but that sucks: it makes this function hard to read. Oh, and an
 code that lives in a controller can't be reused somewhere else. And don't even get
 me started on unit testing...
 
-It's time to grow up and move out of our parent's basement. I mean, it's time to
+It's time to grow up and move out of our parent's basement. I mean, it's time 
 to organize this code and put it somewhere else: in a new class that's independent
 of Drupal. In other words, in a *service*.
 
