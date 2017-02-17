@@ -17,6 +17,14 @@ it gives us a new super-power: the ability to get services out of the container.
 
 ## Override create()
 
+***TIP
+An alternative to the following method is to register your controller as a service
+and refer to it in your routing with a `your_service_name:methodName` syntax (e.g.
+`dino.roar_controller:roar`). This allows you to pass other services into your controller
+without needing to add the `create` function. For more info, see
+[Structure of Routes](https://www.drupal.org/docs/8/api/routing-system/structure-of-routes).
+***
+
 I'll use the shortcut [command+n](http://knpuniversity.com/screencast/phpstorm/doctrine),
 select "Override" from the menu and override the `create` function that lives in
 the base class:
