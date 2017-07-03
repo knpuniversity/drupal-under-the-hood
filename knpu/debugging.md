@@ -1,6 +1,6 @@
 # Debugging!
 
-Debugging in Drupal 8 is pretty sweet... if you now the tools to use.
+Debugging in Drupal 8 is pretty sweet... if you know the tools to use.
 
 ## Turning on Debugging
 
