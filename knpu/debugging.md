@@ -30,7 +30,7 @@ chmod 644 sites/default/settings.php
 ```
 
 ***TIP
-On a production server, it's beast to make sure these files are *not* writeable by
+On a production server, it's best to make sure these files are *not* writeable by
 whatever user runs your web server.
 ***
 
