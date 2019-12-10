@@ -109,7 +109,7 @@ a Symfony `Response` object. Ok, that's not 100% true - but let me lie for just 
 *little* bit longer.
 
 ***TIP
-The code-styling (4 spces indentation, etc) I'm using is called PSR-4. It's a great
+The code-styling (4 spaces indentation, etc) I'm using is called PSR-2. It's a great
 PHP standard, but is (I admit) different than the recommended Drupal standard.
 ***
 
