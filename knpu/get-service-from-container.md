@@ -152,7 +152,7 @@ Call the argument `$loggerFactory`. I'll use a PhpStorm shortcut called
 [initialize fields](http://knpuniversity.com/screencast/phpstorm/service-shortcuts#generating-constructor-properties)
 to add that property and set it:
 
-[[[ code('08801984df') ]]]
+[[[ code('80629e7f66') ]]]
 
 If you want to dive into PhpStorm shortcuts, you should: we have a
 [full tutorial](http://knpuniversity.com/screencast/phpstorm) on it.
