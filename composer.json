@@ -13,6 +13,9 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
+    "platform": {
+      "php": "5.5.9"
+    },
     "preferred-install": "dist",
     "autoloader-suffix": "Drupal8"
   },
