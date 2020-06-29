@@ -22,14 +22,8 @@ on how you installed Composer.
 
 **Setting up the Site & Database**
 
-This code comes from a pre-built Drupal site, which means we've already
-completed the installation process and have a database.
-
-First, check that the database settings in `sites/default/settings.php`
+Check that the database settings in `sites/default/settings.php`
 are correct for your system.
-
-Then, import the database dump - `finished_database.sql` - into your
-database.
 
 **Start the built-in web server**
 
@@ -40,7 +34,8 @@ great:
 php -S localhost:8000
 ```
 
-Now check out the site at `http://localhost:8000`
+Now check out the site at `http://localhost:8000` and go through the
+installation process.
 
 Have fun!
 
